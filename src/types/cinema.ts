@@ -3,8 +3,9 @@ export interface Cinema {
   name: string;
   address: string;
   city: string;
-  phone: string;
-  website: string;
-  description: string;
-  google_map?: string;
+
+  phone?: string | null;
+  website?: string | null;
+  description?: string | null;
+  google_map?: string | null;
 }
