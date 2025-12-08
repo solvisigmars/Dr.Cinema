@@ -1,7 +1,7 @@
 import { API_PASSWORD, API_USERNAME } from "@/api-credentials";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getToken } from "../api/auth";
-import { setToken } from "../api/client";
+import { getToken } from "../../../api/auth";
+import { setToken } from "../../../api/client";
 
 interface AuthState {
   token: string | null;
