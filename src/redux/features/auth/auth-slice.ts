@@ -12,7 +12,7 @@ interface AuthState {
 const initialState: AuthState = {
   token: null,
   status: "idle",
-  error: null,
+  error: null
 };
 
 export const authenticateUser = createAsyncThunk<string>(
@@ -42,6 +42,6 @@ const authSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message ?? "Authentication failed";
       });
-  },
+  }
 });
 export default authSlice.reducer;

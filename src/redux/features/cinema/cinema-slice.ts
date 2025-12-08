@@ -1,6 +1,7 @@
 // src/redux/features/cinemas/cinemas-slice.ts
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getCinemas, Cinema } from "../../../api/cinemas";
+import { getCinemas } from "@/src/api/cinemas";
+import { Cinema } from "@/src/types/cinema";
 
 interface CinemasState {
   items: Cinema[];
@@ -11,17 +12,18 @@ interface CinemasState {
 const initialState: CinemasState = {
   items: [],
   status: "idle",
-  error: null,
+  error: null
 };
 
-// 🔁 Async action creator – all network requests must go through these (assignment requirement)
+// 🔁 Async action creator (required by assignment)
+// All network requests MUST go through async thunks
 export const fetchCinemas = createAsyncThunk<Cinema[]>(
   "cinemas/fetchCinemas",
   async () => {
     const cinemas = await getCinemas();
-    // you can sort A–Z here already if you want:
-    cinemas.sort((a, b) => a.name.localeCompare(b.name));
-    return cinemas;
+
+    // Alphabetical sorting (assignment requirement)
+    return cinemas.sort((a, b) => a.name.localeCompare(b.name));
   }
 );
 
@@ -43,7 +45,7 @@ const cinemasSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message ?? "Failed to load cinemas";
       });
-  },
+  }
 });
 
 export default cinemasSlice.reducer;
