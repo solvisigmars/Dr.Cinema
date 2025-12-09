@@ -1,5 +1,5 @@
-import apiClient from "./client";
 import { Movie } from "../types/movie";
+import { api } from "./client";
 
 /**
  * Fetch all movies currently in theaters.
@@ -23,6 +23,6 @@ export async function getMovies(query?: MovieQuery): Promise<Movie[]> {
         .join("&")
     : "";
 
-  const response = await apiClient.get<Movie[]>(`/movies${queryString}`);
+  const response = await api.get<Movie[]>(`/movies${queryString}`);
   return response.data;
 }

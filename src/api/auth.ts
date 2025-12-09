@@ -13,8 +13,8 @@ export const getToken = async (
     null,
     {
       headers: {
-        Authorization: `Basic ${encoded}`,
-      },
+        Authorization: `Basic ${encoded}`
+      }
     }
   );
 
