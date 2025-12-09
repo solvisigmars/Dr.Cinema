@@ -1,5 +1,5 @@
-import { View, Text } from "react-native";
-import { Cinema } from "@/types/cinema";
+import { Cinema } from "@/src/types/cinema";
+import { Text, View } from "react-native";
 
 export default function CinemaInfo({ cinema }: { cinema: Cinema }) {
   return (

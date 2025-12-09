@@ -13,6 +13,7 @@ export default function MovieCard({movie}: Props) {
   return (
     <TouchableOpacity
       onPress={() => router.push(`/movie/${movie.id}`)}
+      style = {styles.card}
     >
       <Image source={{uri: movie.poster}} style = {styles.poster}/>
 
