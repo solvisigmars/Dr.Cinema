@@ -1,4 +1,4 @@
-import apiClient from "./client";
+import { api } from "./client";
 import { Movie } from "../types/movie";
 
 /**
@@ -23,6 +23,6 @@ export async function getMovies(query?: MovieQuery): Promise<Movie[]> {
         .join("&")
     : "";
 
-  const response = await apiClient.get<Movie[]>(`/movies${queryString}`);
+  const response = await api.get<Movie[]>(`/movies${queryString}`);
   return response.data;
 }
