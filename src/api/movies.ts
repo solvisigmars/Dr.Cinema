@@ -1,4 +1,3 @@
-import { api } from "./client";
 import { Movie } from "../types/movie";
 import { api } from "./client";
 

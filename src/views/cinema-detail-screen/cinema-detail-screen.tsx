@@ -1,6 +1,6 @@
-import React from "react";
-import { View, Text, ScrollView, TouchableOpacity, Linking } from "react-native";
 import { useRouter } from "expo-router";
+import React from "react";
+import { Linking, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
 
 import { RootState } from "@/src/redux/store";

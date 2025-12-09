@@ -12,7 +12,7 @@ module.exports = defineConfig([
       "brace-style": ["error", "1tbs"], 
 
       "comma-dangle": ["error", "never"], 
-      semi: ["error", "always"],          
-    },
-  },
+      semi: ["error", "always"]          
+    }
+  }
 ]);

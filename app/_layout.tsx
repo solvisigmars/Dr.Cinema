@@ -1,8 +1,8 @@
-import { Stack } from "expo-router";
-import { Provider, useDispatch } from "react-redux";
-import { store } from "@/src/redux/store";
-import { useEffect } from "react";
 import { authenticateUser } from "@/src/redux/features/auth/auth-slice";
+import { store } from "@/src/redux/store";
+import { Stack } from "expo-router";
+import { useEffect } from "react";
+import { Provider, useDispatch } from "react-redux";
 
 function LoadAuthToken() {
   const dispatch = useDispatch();

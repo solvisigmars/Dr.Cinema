@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { API_PASSWORD, API_USERNAME } from "@/api-credentials";
 import { getToken } from "@/src/api/auth";
 import { setToken } from "@/src/api/client";
-import { API_USERNAME, API_PASSWORD } from "@/api-credentials";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface AuthState {
   token: string | null;
@@ -12,7 +12,7 @@ interface AuthState {
 const initialState: AuthState = {
   token: null,
   status: "idle",
-  error: null,
+  error: null
 };
 
 // Fetch token (will run automatically on app startup)
