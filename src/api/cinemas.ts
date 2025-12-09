@@ -1,4 +1,3 @@
-// src/api/cinema.ts
 import { Cinema } from "@/src/types/cinema";
 import { api } from "./client";
 

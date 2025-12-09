@@ -1,9 +1,5 @@
-import { View, Text } from "react-native";
+import CinemasScreen from "@/src/views/cinemas-screen/cinema-screen";
 
-export default function CinemasScreen() {
-  return (
-    <View>
-      <Text>Cinemas Screen</Text>
-    </View>
-  );
+export default function CinemasRoute() {
+  return <CinemasScreen />;
 }

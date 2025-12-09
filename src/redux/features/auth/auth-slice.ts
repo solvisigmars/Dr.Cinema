@@ -1,7 +1,7 @@
-import { API_PASSWORD, API_USERNAME } from "@/api-credentials";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getToken } from "../../../api/auth";
-import { setToken } from "../../../api/client";
+import { getToken } from "@/src/api/auth";
+import { setToken } from "@/src/api/client";
+import { API_USERNAME, API_PASSWORD } from "@/api-credentials";
 
 interface AuthState {
   token: string | null;
@@ -12,27 +12,24 @@ interface AuthState {
 const initialState: AuthState = {
   token: null,
   status: "idle",
-  error: null
+  error: null,
 };
 
-export const authenticateUser = createAsyncThunk<string>(
-  "auth/authenticateUser",
-  async () => {
-    const token = await getToken(API_USERNAME, API_PASSWORD);
-    setToken(token);
-    return token;
-  }
-);
+// Fetch token (will run automatically on app startup)
+export const authenticateUser = createAsyncThunk("auth/authenticate", async () => {
+  const token = await getToken(API_USERNAME, API_PASSWORD);
+  setToken(token);
+  return token;
+});
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(authenticateUser.pending, (state) => {
+      .addCase(authenticateUser.pending, state => {
         state.status = "loading";
-        state.error = null;
       })
       .addCase(authenticateUser.fulfilled, (state, action) => {
         state.status = "succeeded";
@@ -40,8 +37,9 @@ const authSlice = createSlice({
       })
       .addCase(authenticateUser.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message ?? "Authentication failed";
+        state.error = action.error.message ?? "Failed to authenticate";
       });
   }
 });
+
 export default authSlice.reducer;
