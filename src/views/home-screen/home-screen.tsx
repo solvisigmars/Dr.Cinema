@@ -170,7 +170,7 @@ export default function HomeScreen() {
           keyExtractor={(g) => g.cinemaId.toString()}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
-            <CinemaSection cinemaName={item.cinemaName} movies={item.movies} />
+            <CinemaSection cinemaName={item.cinemaName} cinemaId={item.cinemaId} movies={item.movies} />
           )}
         />
       </View>

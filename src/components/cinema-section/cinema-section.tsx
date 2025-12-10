@@ -6,20 +6,23 @@ import styles from "./styles";
 
 interface Props {
   cinemaName: string;
+  cinemaId: number;   
   movies: Movie[];
 }
 
-export default function CinemaSection({cinemaName, movies}: Props) {
+export default function CinemaSection({ cinemaName, cinemaId, movies }: Props) {
   return (
-    <View style = {styles.container}>
-      <Text style = {styles.cinemaName}>{cinemaName}</Text>
+    <View style={styles.container}>
+      <Text style={styles.cinemaName}>{cinemaName}</Text>
 
       <FlatList
         data={movies}
         horizontal
         keyExtractor={(movie) => movie.id.toString()}
         showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => <MovieCard movie={item} />}
+        renderItem={({ item }) => (
+          <MovieCard movie={item} cinemaId={cinemaId} /> 
+        )}
       />
     </View>
   );

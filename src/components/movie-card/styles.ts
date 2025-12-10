@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   cardWrapper: {
     width: 170,
-    marginRight: 16,
+    marginRight: 16
   },
 
   // Poster: SHARP edges
@@ -11,7 +11,7 @@ export default StyleSheet.create({
     width: "100%",
     height: 250,
     borderRadius: 0,
-    backgroundColor: "#111",
+    backgroundColor: "#111"
   },
 
   // White rounded block under poster
@@ -26,24 +26,24 @@ export default StyleSheet.create({
     shadowColor: "#000",
     shadowOpacity: 0.12,
     shadowRadius: 6,
-    shadowOffset: { width: 0, height: 4 },
+    shadowOffset: { width: 0, height: 4 }
   },
 
   title: {
     fontSize: 15,
     fontWeight: "700",
-    color: "#111827",
+    color: "#111827"
   },
 
   year: {
     fontSize: 13,
     color: "#6B7280",
-    marginTop: 2,
+    marginTop: 2
   },
 
   genres: {
     fontSize: 12,
     color: "#6B7280",
-    marginTop: 2,
-  },
+    marginTop: 2
+  }
 });

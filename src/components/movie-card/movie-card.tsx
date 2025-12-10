@@ -5,14 +5,15 @@ import styles from "./styles";
 
 interface Props {
   movie: Movie;
+  cinemaId: number
 }
 
-export default function MovieCard({ movie }: Props) {
+export default function MovieCard({ movie, cinemaId }: Props) {
   const router = useRouter();
 
   return (
     <TouchableOpacity
-      onPress={() => router.push(`/movie/${movie.id}`)}
+      onPress={() => router.push(`/movie/${movie.id}?cinemaId=${cinemaId}`)}
       style={styles.cardWrapper}
       activeOpacity={0.9}
     >

@@ -1,10 +1,10 @@
+import { blue } from "@/src/styles/color";
 import { StyleSheet } from "react-native";
-import { blue, textSecondary } from "@/src/styles/color";
 
 export default StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: "#2F3338",
+    backgroundColor: "#2F3338"
   },
 
   headerBackground: {
@@ -13,19 +13,19 @@ export default StyleSheet.create({
     left: 0,
     right: 0,
     height: 150,
-    backgroundColor: "#2F3338",
+    backgroundColor: "#2F3338"
   },
 
   container: {
     flex: 1,
     paddingTop: 30,
-    paddingHorizontal: 16,
+    paddingHorizontal: 16
   },
 
   center: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
 
   loadingText: { color: "white", fontSize: 16 },
@@ -34,7 +34,7 @@ export default StyleSheet.create({
   searchRow: {
     flexDirection: "row",
     marginBottom: 18,
-    alignItems: "center",
+    alignItems: "center"
   },
 
   searchBar: {
@@ -45,13 +45,13 @@ export default StyleSheet.create({
     borderRadius: 30,
     paddingHorizontal: 16,
     height: 45,
-    marginRight: 10,
+    marginRight: 10
   },
 
   searchInput: {
     flex: 1,
     color: "white",
-    marginLeft: 10,
+    marginLeft: 10
   },
 
   filterButton: {
@@ -60,7 +60,7 @@ export default StyleSheet.create({
     borderRadius: 22.5,
     backgroundColor: blue,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
 
   listContent: { paddingBottom: 40 },
@@ -69,25 +69,25 @@ export default StyleSheet.create({
     backgroundColor: "#3A3F45",
     borderRadius: 18,
     padding: 18,
-    marginBottom: 16,
+    marginBottom: 16
   },
 
   rowBetween: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-between"
   },
 
   cinemaName: {
     color: "white",
     fontSize: 22,
     fontWeight: "700",
-    marginBottom: 6,
+    marginBottom: 6
   },
 
   addressText: {
     color: "#D1D5DB",
     fontSize: 14,
-    marginBottom: 10,
+    marginBottom: 10
   },
 
   mapButton: {
@@ -97,20 +97,20 @@ export default StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 10,
-    width: "85%",
+    width: "85%"
   },
 
   mapButtonText: {
     marginLeft: 6,
     color: "#34D399",
     fontSize: 14,
-    fontWeight: "600",
+    fontWeight: "600"
   },
 
   rightColumn: {
     alignItems: "center",
     justifyContent: "space-between",
-    gap: 12,
+    gap: 12
   },
 
   websiteButton: {
@@ -119,7 +119,7 @@ export default StyleSheet.create({
     borderRadius: 12,
     backgroundColor: "rgba(96,165,250,0.15)",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
 
   arrowButton: {
@@ -128,6 +128,6 @@ export default StyleSheet.create({
     borderRadius: 12,
     backgroundColor: "rgba(255,255,255,0.1)",
     justifyContent: "center",
-    alignItems: "center",
-  },
+    alignItems: "center"
+  }
 });
