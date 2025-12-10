@@ -7,7 +7,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -25,142 +25,118 @@ export default function CinemasScreen() {
 
   const [search, setSearch] = useState("");
 
-  // 🔍 Filter cinemas by name or city
-  const filteredCinemas = useMemo(() => {
+  const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
     if (!q) return cinemas;
-    return cinemas.filter((c) => {
-      const name = c.name?.toLowerCase() ?? "";
-      const city = c.city?.toLowerCase() ?? "";
-      return name.includes(q) || city.includes(q);
-    });
+    return cinemas.filter((c) =>
+      `${c.name} ${c.city} ${c.address}`.toLowerCase().includes(q)
+    );
   }, [cinemas, search]);
 
   useEffect(() => {
-    if (status === "idle") {
-      dispatch(fetchCinemas());
-    }
-  }, [status, dispatch]);
+    if (status === "idle") dispatch(fetchCinemas());
+  }, [status]);
 
-  function openCinema(id: number) {
-    router.push(`/cinema/${id}`);
-  }
+  const openCinema = (id: number) => router.push(`/cinema/${id}`);
 
-  if (status === "loading") {
+  const openWebsite = (url: string) =>
+    Linking.openURL(url.startsWith("http") ? url : `https://${url}`);
+
+  const openMap = (cinema: any) => {
+    const query = `${cinema.name} ${cinema.address} ${cinema.city}`.replace(
+      /\s+/g,
+      "+"
+    );
+    Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${query}`);
+  };
+
+  if (status === "loading")
     return (
       <View style={styles.center}>
         <Text style={styles.loadingText}>Finding the best cinemas… 🎬</Text>
       </View>
     );
-  }
 
-  if (error) {
+  if (error)
     return (
       <View style={styles.center}>
         <Text style={styles.errorText}>{error}</Text>
       </View>
     );
-  }
 
   return (
     <View style={styles.screen}>
-      {/* 🌌 Top gradient-ish background block */}
       <View style={styles.headerBackground} />
 
       <View style={styles.container}>
-        {/* 🟦 Hero header */}
-        <View style={styles.header}>
-          <View>
-            <Text style={styles.headerTitle}>Cinemas</Text>
-            <Text style={styles.headerSubtitle}>
-              Pick a cinema to see what’s playing tonight.
-            </Text>
+        {/* SEARCH BAR */}
+        <View style={styles.searchRow}>
+          <View style={styles.searchBar}>
+            <Ionicons name="search" size={18} color="#9CA3AF" />
+            <TextInput
+              placeholder="Search cinemas…"
+              placeholderTextColor="#9CA3AF"
+              style={styles.searchInput}
+              value={search}
+              onChangeText={setSearch}
+            />
           </View>
 
-          <View style={styles.badge}>
-            <Ionicons name="film-outline" size={14} color="#2563EB" />
-            <Text style={styles.badgeText}>{cinemas.length} locations</Text>
-          </View>
+          <TouchableOpacity style={styles.filterButton}>
+            <Ionicons name="options-outline" size={20} color="white" />
+          </TouchableOpacity>
         </View>
 
-        {/* 🔍 Search bar */}
-        <View style={styles.searchWrapper}>
-          <Ionicons name="search-outline" size={18} color="#6B7280" />
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search by name or city"
-            placeholderTextColor="#9CA3AF"
-            value={search}
-            onChangeText={setSearch}
-          />
-          {search.length > 0 && (
-            <TouchableOpacity onPress={() => setSearch("")}>
-              <Ionicons name="close-circle" size={18} color="#9CA3AF" />
-            </TouchableOpacity>
-          )}
-        </View>
-
-        {/* 🧾 Cinemas list */}
+        {/* CINEMA LIST */}
         <FlatList
-          data={filteredCinemas}
+          data={filtered}
           keyExtractor={(item) => item.id.toString()}
-          showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.listContent}
-          ListEmptyComponent={
-            <View style={styles.emptyState}>
-              <Ionicons
-                name="search-outline"
-                size={26}
-                color="#9CA3AF"
-                style={{ marginBottom: 6 }}
-              />
-              <Text style={styles.emptyTitle}>No cinemas found</Text>
-              <Text style={styles.emptySubtitle}>
-                Try a different name or clear the search.
-              </Text>
-            </View>
-          }
+          showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => openCinema(item.id)}
-              style={styles.card}
-              activeOpacity={0.85}
-            >
-              {/* Top row: name + arrow */}
+            <View style={styles.card}>
+
+              {/* row: left info + right buttons */}
               <View style={styles.rowBetween}>
-                <View>
+                {/* LEFT SIDE */}
+                <View style={{ flex: 1 }}>
                   <Text style={styles.cinemaName}>{item.name}</Text>
-                  {!!item.city && (
-                    <Text style={styles.cityText}>{item.city}</Text>
-                  )}
+
+                  <Text style={styles.addressText}>
+                    {item.address}, {item.city}
+                  </Text>
+
+                  {/* MAP BUTTON */}
+                  <TouchableOpacity
+                    style={styles.mapButton}
+                    onPress={() => openMap(item)}
+                  >
+                    <Ionicons name="map-outline" size={16} color="#34D399" />
+                    <Text style={styles.mapButtonText}>Open in Google Maps</Text>
+                  </TouchableOpacity>
                 </View>
 
-                <Ionicons name="chevron-forward" size={20} color="#9CA3AF" />
+                {/* RIGHT SIDE */}
+                <View style={styles.rightColumn}>
+                  {item.website && (
+                    <TouchableOpacity
+                      style={styles.websiteButton}
+                      onPress={() => openWebsite(item.website)}
+                    >
+                      <Ionicons name="globe-outline" size={20} color="#60A5FA" />
+                    </TouchableOpacity>
+                  )}
+
+                  <TouchableOpacity
+                    style={styles.arrowButton}
+                    onPress={() => openCinema(item.id)}
+                  >
+                    <Ionicons name="chevron-forward" size={22} color="#D1D5DB" />
+                  </TouchableOpacity>
+                </View>
               </View>
 
-              {/* Address */}
-              {item.address ? (
-                <View style={styles.row}>
-                  <Ionicons name="location-outline" size={16} color="#6B7280" />
-                  <Text style={styles.address}>
-                    {item.address}
-                    {item.city ? `, ${item.city}` : ""}
-                  </Text>
-                </View>
-              ) : null}
-
-              {/* Website */}
-              {item.website && (
-                <TouchableOpacity
-                  style={styles.row}
-                  onPress={() => Linking.openURL(`https://${item.website}`)}
-                  activeOpacity={0.7}
-                >
-                  <Ionicons name="globe-outline" size={16} color="#2563EB" />
-                  <Text style={styles.website}>{item.website}</Text>
-                </TouchableOpacity>
-              )}
-            </TouchableOpacity>
+            </View>
           )}
         />
       </View>

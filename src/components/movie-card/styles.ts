@@ -1,41 +1,49 @@
-import { background, cardBackground } from "@/src/styles/color";
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-  card: {
-    width: 210,
+  cardWrapper: {
+    width: 170,
     marginRight: 16,
-    backgroundColor: cardBackground,
-    borderRadius: 15,
-    padding: 10,           
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 2 }
   },
 
+  // Poster: SHARP edges
   poster: {
     width: "100%",
-    aspectRatio: 2 / 3,     // ensures consistent poster size
-    borderRadius: 10,
-    backgroundColor: background
+    height: 250,
+    borderRadius: 0,
+    backgroundColor: "#111",
+  },
+
+  // White rounded block under poster
+  infoBlock: {
+    backgroundColor: "#FFFFFF",
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderBottomLeftRadius: 14,
+    borderBottomRightRadius: 14,
+
+    // subtle shadow
+    shadowColor: "#000",
+    shadowOpacity: 0.12,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 4 },
   },
 
   title: {
-    fontSize: 14,
-    fontWeight: "600",
-    marginTop: 8
+    fontSize: 15,
+    fontWeight: "700",
+    color: "#111827",
   },
 
   year: {
-    fontSize: 12,
+    fontSize: 13,
     color: "#6B7280",
-    marginTop: 2
+    marginTop: 2,
   },
 
   genres: {
-    fontSize: 11,
-    color: "#9CA3AF",
-    marginTop: 2
-  }
+    fontSize: 12,
+    color: "#6B7280",
+    marginTop: 2,
+  },
 });

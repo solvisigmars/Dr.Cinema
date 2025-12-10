@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import styles from "./styles";
 
 type CinemaGroup = {
@@ -42,29 +42,30 @@ function groupMoviesByCinema(movies: Movie[]): CinemaGroup[] {
 }
 
 export default function HomeScreen() {
+  const insets = useSafeAreaInsets();
   const dispatch = useAppDispatch();
   const [showFilters, setShowFilters] = useState(false);
+
   const {
     items: movies,
     status,
     error
   } = useAppSelector((state) => state.movies);
+
   const filters = useAppSelector((state) => state.filters);
 
   useEffect(() => {
     dispatch(fetchMovies());
-  }, [dispatch]);
+  }, []);
 
   const filteredMovies = useMemo(() => {
     return movies.filter((movie) => {
-      // 1. Title
       if (
         filters.title &&
         !movie.title.toLowerCase().includes(filters.title.toLowerCase())
       )
         return false;
 
-      // 2. IMDb rating (from OMDB)
       const imdb = movie.omdb?.[0]?.imdbRating
         ? Number(movie.omdb[0].imdbRating)
         : null;
@@ -75,16 +76,8 @@ export default function HomeScreen() {
       if (filters.imdbMax !== null && (imdb === null || imdb > filters.imdbMax))
         return false;
 
-      // 3. Rotten Tomatoes Rating (critics OR audience)
-      const rtCritics = movie.ratings?.rotten_critics
-        ? Number(movie.ratings.rotten_critics)
-        : null;
-
-      const rtAudience = movie.ratings?.rotten_audience
-        ? Number(movie.ratings.rotten_audience)
-        : null;
-
-      // use critics score if available, otherwise audience
+      const rtCritics = movie.ratings?.rotten_critics ?? null;
+      const rtAudience = movie.ratings?.rotten_audience ?? null;
       const rt = rtCritics ?? rtAudience ?? null;
 
       if (filters.rtMin !== null && (rt === null || rt < filters.rtMin))
@@ -93,7 +86,6 @@ export default function HomeScreen() {
       if (filters.rtMax !== null && (rt === null || rt > filters.rtMax))
         return false;
 
-      // 4. Showtime Range (schedule[].time)
       if (filters.showStart || filters.showEnd) {
         const start = filters.showStart ?? "00:00";
         const end = filters.showEnd ?? "23:59";
@@ -107,18 +99,16 @@ export default function HomeScreen() {
         if (!inRange) return false;
       }
 
-      // 5. Actors
-      const actorNames = movie.actors_abridged.map((a) => a.name.toLowerCase());
+      const actorNames = movie.actors_abridged.map((a) =>
+        a.name.toLowerCase()
+      );
 
       if (
         filters.actors.length > 0 &&
-        !filters.actors.some((actor) =>
-          actorNames.includes(actor.toLowerCase())
-        )
+        !filters.actors.some((actor) => actorNames.includes(actor.toLowerCase()))
       )
         return false;
 
-      // 6. Directors
       const directorNames = movie.directors_abridged.map((d) =>
         d.name.toLowerCase()
       );
@@ -131,24 +121,22 @@ export default function HomeScreen() {
       )
         return false;
 
-      // 7. PG Rating
       const pg = movie.certificate?.is ?? null;
-
       if (filters.pgRating && pg !== filters.pgRating) return false;
 
       return true;
     });
   }, [movies, filters]);
 
-  const groups = useMemo(() => {
-    return groupMoviesByCinema(filteredMovies);
-  }, [filteredMovies]);
+  const groups = useMemo(() => groupMoviesByCinema(filteredMovies), [
+    filteredMovies
+  ]);
 
   if (status === "loading") {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" />
-        <Text>Loading Movies...</Text>
+        <ActivityIndicator size="large" color="white" />
+        <Text style={styles.loadingText}>Loading Movies…</Text>
       </View>
     );
   }
@@ -156,44 +144,38 @@ export default function HomeScreen() {
   if (status === "failed") {
     return (
       <View style={styles.center}>
-        <Text>Error loading movies</Text>
-        <Text>{error}</Text>
+        <Text style={styles.errorText}>Error loading movies</Text>
+        <Text style={styles.errorText}>{error}</Text>
       </View>
     );
   }
 
   return (
     <View style={styles.screen}>
-      {/* 🌌 Top gradient-ish background block */}
       <View style={styles.headerBackground} />
 
-      <View style={styles.container}>
-        {/* 🟦 Hero header */}
-        <View style={styles.header}>
-          <View>
-            <Text style={styles.headerTitle}>Home</Text>
-            <Text style={styles.headerSubtitle}>
-              See what is playing in cinemeas
-            </Text>
-          </View>
+      {/* FIXED FILTER BUTTON (NOT FLOATING ANYMORE) */}
+      <View style={[styles.topBar, { paddingTop: insets.top + 4 }]}>
+        <TouchableOpacity
+          onPress={() => setShowFilters(true)}
+          style={styles.filterButton}
+        >
+          <Ionicons name="options-outline" size={22} color="#FFFFFF" />
+        </TouchableOpacity>
+      </View>
 
-          <TouchableOpacity onPress={() => setShowFilters(true)}>
-            <Ionicons name="options-outline" size={24} color="#FFFFFF" />
-          </TouchableOpacity>
-        </View>
-
+      <View style={styles.contentWrapper}>
         <FlatList
           data={groups}
-          keyExtractor={(group) => group.cinemaId.toString()}
+          keyExtractor={(g) => g.cinemaId.toString()}
+          showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
             <CinemaSection cinemaName={item.cinemaName} movies={item.movies} />
           )}
         />
       </View>
-      <FilterModal
-        visible={showFilters}
-        onClose={() => setShowFilters(false)}
-      />
+
+      <FilterModal visible={showFilters} onClose={() => setShowFilters(false)} />
     </View>
   );
 }
