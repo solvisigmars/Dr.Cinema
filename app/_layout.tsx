@@ -40,12 +40,21 @@ export default function RootLayout() {
           }}
         />
 
-        {/* Movie Detail Screen */}
+        {/* Movie Detail Screen (Now Playing Movies) */}
         <Stack.Screen
           name="movie/[id]"
           options={{
+            headerShown: false, // 🔥 must be false so we can show OUR custom top bar
+            contentStyle: { backgroundColor: "#2F3338" }
+          }}
+        />
+
+        {/* Upcoming Movie Detail Screen */}
+        <Stack.Screen
+          name="upcoming/[id]"
+          options={{
             headerShown: false,
-            contentStyle: { backgroundColor: "#2F3338" } 
+            contentStyle: { backgroundColor: "#2F3338" }
           }}
         />
       </Stack>

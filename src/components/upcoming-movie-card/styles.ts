@@ -4,7 +4,7 @@ export default StyleSheet.create({
   container: {
     marginVertical: 14,
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
 
   poster: {
@@ -14,15 +14,9 @@ export default StyleSheet.create({
     left: 0,
     top: -6,
     zIndex: 10,
-<<<<<<< HEAD
-    borderTopLeftRadius: 7,
-    borderTopRightRadius: 7,
-    overflow: "hidden"
-=======
     borderTopLeftRadius: 4,
     borderTopRightRadius: 4,
     overflow: "hidden",
->>>>>>> 212a453 (local work in progress)
   },
 
   card: {
@@ -41,7 +35,7 @@ export default StyleSheet.create({
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 4 },
     elevation: 4,
-    position: "relative" // Needed for arrow
+    position: "relative",
   },
 
   title: {
@@ -51,77 +45,51 @@ export default StyleSheet.create({
     flexShrink: 1,
     flexWrap: "nowrap",
     overflow: "hidden",
-    marginBottom: 2
+    marginBottom: 2,
   },
 
   genre: {
     color: "#999",
-    marginBottom: 0
+    marginBottom: 0,
   },
 
   label: {
     fontSize: 13,
     color: "#999",
-    marginTop: 4
+    marginTop: 4,
   },
 
   text: {
     fontSize: 12,
-    color: "#555"
+    color: "#555",
   },
 
-  ratingRow: {
+  /* ⭐ Replaces ratingRow */
+  releaseRow: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 26,
-    marginBottom: 2
+    marginTop: 22,
   },
 
-  imdbBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginRight: 12
+  releaseLabel: {
+    fontSize: 14,
+    color: "#444",
+    fontWeight: "600",
+    marginRight: 6,
   },
 
-  imdbLogo: {
-    width: 28,
-    height: 14,
-    marginRight: 4,
-    resizeMode: "contain"
+  releaseDate: {
+    fontSize: 14,
+    color: "#222",
+    fontWeight: "700",
   },
 
-  imdbScore: {
-    fontWeight: "400",
-    color: "#555",   // medium gray
-    fontSize: 15
-  },
-
-  rtBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginRight: 12
-  },
-
-  rtLogo: {
-    width: 24,
-    height: 24,
-    resizeMode: "contain",
-    marginRight: 4
-  },
-
-  rtScore: {
-    fontSize: 16,
-    color: "#D63C2F",
-    fontWeight: "700"
-  },
-
-  /* ⭐ SAME ARROW STYLE AS CINEMASCREEN */
   arrow: {
     position: "absolute",
     right: 16,
     top: "50%",
     transform: [{ translateY: -11 }],
-    fontSize: 22,        // same size
-    color: "#D1D5DB"    // same color
-  }
+    fontSize: 22,
+    color: "#D1D5DB",
+  },
 });

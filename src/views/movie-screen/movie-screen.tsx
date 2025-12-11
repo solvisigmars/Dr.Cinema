@@ -1,6 +1,11 @@
+import React, { useEffect, useState } from "react";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+
 import MovieInfo from "@/src/components/movie-info/movie-info";
 import MovieShowtimes from "@/src/components/movie-showtimes/movie-showtimes";
 import TrailerPlayer from "@/src/components/trailer-player/trailer-player";
+<<<<<<< HEAD
 import {
   addFavourite,
   removeFavourite
@@ -11,6 +16,13 @@ import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+=======
+
+import { fetchMovies } from "@/src/redux/features/movies/movies-slice";
+import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
+import { useLocalSearchParams, useRouter } from "expo-router";
+
+>>>>>>> 212a453 (local work in progress)
 import styles from "./styles";
 
 export default function MovieScreen() {
@@ -24,14 +36,14 @@ export default function MovieScreen() {
     if (status === "idle") {
       dispatch(fetchMovies());
     }
-  }, [status, dispatch]);
+  }, [status]);
 
   const movie = movies.find((m) => m.id === Number(id));
 
   if (!movie) {
     return (
-      <View>
-        <Text>Loading movie...</Text>
+      <View style={styles.center}>
+        <Text style={styles.loadingText}>Loading movie…</Text>
       </View>
     );
   }
@@ -44,6 +56,7 @@ export default function MovieScreen() {
   };
 
   return (
+<<<<<<< HEAD
     <View style={{ flex: 1 }}>
       <TouchableOpacity onPress={() => router.back()} style={styles.sideButton}>
         <Ionicons name="chevron-back" size={28} color="white" />
@@ -64,5 +77,28 @@ export default function MovieScreen() {
         <TrailerPlayer movie={movie} />
       </ScrollView>
     </View>
+=======
+    <ScrollView style={styles.screen}>
+      {/* BACK ARROW + POSTER */}
+      <View style={styles.headerWrapper}>
+        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+          <Ionicons name="chevron-back" size={28} color="white" />
+        </TouchableOpacity>
+
+        <Image source={{ uri: movie.poster }} style={styles.poster} />
+      </View>
+
+      {/* MOVIE INFO COMPONENT */}
+      <MovieInfo movie={movie} />
+
+      {/* SHOWTIMES (only if cinemaId exists) */}
+      {cinemaId && (
+        <MovieShowtimes movie={movie} cinemaId={Number(cinemaId)} />
+      )}
+
+      {/* TRAILER */}
+      <TrailerPlayer movie={movie} />
+    </ScrollView>
+>>>>>>> 212a453 (local work in progress)
   );
 }

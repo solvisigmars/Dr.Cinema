@@ -5,7 +5,11 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: "#2F3338",
     paddingTop: 60,
+<<<<<<< HEAD
     paddingHorizontal: 16
+=======
+    paddingHorizontal: 8,
+>>>>>>> 212a453 (local work in progress)
   },
 
   /* 🔙 TOP BAR */

@@ -2,61 +2,40 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: "#2F3338"
+    backgroundColor: "#2F3338",
   },
 
-  headerBackground: {
+  headerWrapper: {
+    marginTop: 60, // pushes poster & arrow below the black island
+    alignItems: "center",
+    position: "relative",
+  },
+
+  backButton: {
     position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 180,
-    backgroundColor: "#2F3338"
+    left: 16,
+    top: 10,
+    zIndex: 20,
+    padding: 8,
   },
 
-  // TOP BAR HOLDS FILTER, LEAVES ROOM FOR FUTURE SEARCH BAR
-  topBar: {
-    width: "100%",
-    paddingHorizontal: 16,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
-    marginBottom: 12
-  },
-
-  filterButton: {
-    width: 42,
-    height: 42,
-    borderRadius: 21,
-    backgroundColor: "#3A3F45",
-    justifyContent: "center",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 3 }
-  },
-
-  contentWrapper: {
-    flex: 1,
-    paddingHorizontal: 16
+  poster: {
+    width: "70%",
+    height: 320,
+    borderRadius: 14,
+    resizeMode: "cover",
   },
 
   center: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
 
   loadingText: {
-    marginTop: 8,
-    color: "#FFFFFF",
-    fontSize: 16
-  },
-
-  errorText: {
-    color: "#EF4444",
+    color: "white",
     fontSize: 16,
+<<<<<<< HEAD
     textAlign: "center"
   },
 
@@ -78,4 +57,7 @@ export default StyleSheet.create({
     padding: 6,
     borderRadius: 20
   }
+=======
+  },
+>>>>>>> 212a453 (local work in progress)
 });

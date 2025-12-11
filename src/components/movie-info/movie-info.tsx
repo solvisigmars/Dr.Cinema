@@ -3,6 +3,7 @@ import { Image, Text, View } from "react-native";
 import styles from "./styles";
 
 export default function MovieInfo({ movie }: { movie: Movie }) {
+<<<<<<< HEAD
   const criticsScore = Number(movie.ratings?.rotten_critics ?? 0);
   const imdbScore = movie.ratings?.imdb ?? "-";
 
@@ -43,11 +44,26 @@ export default function MovieInfo({ movie }: { movie: Movie }) {
         )}
       </View>
 
+=======
+  return (
+    <View style={styles.infoBox}>
+      <Text style={styles.title}>{movie.title}</Text>
+
+      {movie.plot ? (
+        <Text style={styles.plot}>{movie.plot}</Text>
+      ) : null}
+
+      <Text style={styles.info}>
+        {movie.durationMinutes} mínútur • {movie.year} • {movie.certificate?.is}
+      </Text>
+
+>>>>>>> 212a453 (local work in progress)
       <Text style={styles.info}>
         Leikstjóri: {movie.directors_abridged.map((d) => d.name).join(", ")}
       </Text>
 
       <Text style={styles.info}>
+<<<<<<< HEAD
         Höfundar: {movie.omdb?.[0]?.Writer || "Unknown"}
       </Text>
 
@@ -56,6 +72,10 @@ export default function MovieInfo({ movie }: { movie: Movie }) {
       </Text>
 
       <Text style={styles.info}>{movie.omdb?.[0]?.Country}</Text>
+=======
+        Aðalhlutverk: {movie.actors_abridged.map((a) => a.name).join(", ")}
+      </Text>
+>>>>>>> 212a453 (local work in progress)
     </View>
   );
 }

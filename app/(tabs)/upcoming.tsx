@@ -1,9 +1,3 @@
-import { View, Text } from "react-native";
+import UpcomingScreen from "@/src/views/upcoming-screen/upcoming-screen";
 
-export default function UpcomingScreen() {
-  return (
-    <View>
-      <Text>Upcoming Movies</Text>
-    </View>
-  );
-}
+export default UpcomingScreen;
