@@ -16,11 +16,6 @@ export default function MovieInfo({movie}: {movie: Movie}){
       ? movie.ratings.rotten_critics
       : "N/A";
 
-  const rtAudience =
-    movie.ratings?.rotten_audience && movie.ratings.rotten_audience !== "N/A"
-      ? movie.ratings.rotten_audience
-      : "N/A";
-
   return ( 
     <View style = {styles.container}>
       <Image source={{ uri: movie.poster }} style = {styles.poster}/>

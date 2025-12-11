@@ -1,19 +1,22 @@
 import MovieInfo from "@/src/components/movie-info/movie-info";
 import MovieShowtimes from "@/src/components/movie-showtimes/movie-showtimes";
 import TrailerPlayer from "@/src/components/trailer-player/trailer-player";
+import { addFavourite, removeFavourite } from "@/src/redux/features/favourite/favourite-slice";
 import { fetchMovies } from "@/src/redux/features/movies/movies-slice";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
-import { useLocalSearchParams } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
 
 export default function MovieScreen() {
   const { id, cinemaId } = useLocalSearchParams();
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const { items: movies, status } = useAppSelector((state) => state.movies);
-
+  const favourites = useAppSelector((state) => state.favourites.items);
   useEffect(() => {
     if (status === "idle") {
       dispatch(fetchMovies());
@@ -30,11 +33,35 @@ export default function MovieScreen() {
     );
   }
 
+  const isFavourite = favourites.some((m) => m.id === movie.id);
+
+  const toggleFavourite = () => {
+    if (isFavourite) dispatch(removeFavourite(movie.id));
+    else dispatch(addFavourite(movie));
+  };
+
   return (
-    <ScrollView style={styles.screen}>
-      <MovieInfo movie={movie} />
-      <MovieShowtimes movie={movie} cinemaId={Number(cinemaId)} />
-      <TrailerPlayer movie={movie} />
-    </ScrollView>
+    <View style={{ flex: 1 }}>
+      {/* 🔙 BACK BUTTON */}
+      <TouchableOpacity onPress={() => router.back()} style={styles.sideButton}>
+        <Ionicons name="chevron-back" size={28} color="white" />
+      </TouchableOpacity>
+
+      <ScrollView style={styles.screen}>
+        <MovieInfo movie={movie} />
+
+        {/* ❤️ FAVOURITE BUTTON */}
+        <TouchableOpacity onPress={toggleFavourite} style={styles.favourite}>
+          <Ionicons
+            name={isFavourite ? "heart" : "heart-outline"}
+            size={26}
+            color={isFavourite ? "#FF4D4D" : "white"}
+          />
+        </TouchableOpacity>
+
+        <MovieShowtimes movie={movie} cinemaId={Number(cinemaId)} />
+        <TrailerPlayer movie={movie} />
+      </ScrollView>
+    </View>
   );
 }

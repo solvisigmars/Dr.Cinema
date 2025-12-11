@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import {
-  View,
+  Linking,
+  ScrollView,
   Text,
   TouchableOpacity,
-  ScrollView,
-  Linking,
+  View
 } from "react-native";
 
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { useSelector, useDispatch } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useDispatch, useSelector } from "react-redux";
 
-import { RootState, AppDispatch } from "@/src/redux/store";
 import { fetchCinemas } from "@/src/redux/features/cinema/cinema-slice";
 import { fetchMovies } from "@/src/redux/features/movies/movies-slice";
+import { AppDispatch, RootState } from "@/src/redux/store";
 
 import CinemaMovieCard from "@/src/components/cinema-movie-card/cinema-movie-card";
 import styles from "./styles";
@@ -115,7 +115,7 @@ export default function CinemaDetailScreen() {
         {tab === "movies" ? (
           <>
             {moviesHere.map((movie) => (
-              <CinemaMovieCard key={`movie-${movie.id}`} movie={movie} />
+              <CinemaMovieCard key={`movie-${movie.id}`} movie={movie} cinemaId={cinema.id} />
             ))}
           </>
         ) : (

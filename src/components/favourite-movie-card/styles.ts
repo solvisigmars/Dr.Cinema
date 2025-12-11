@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   container: {
+    flex : 1,
     marginVertical: 14,
     flexDirection: "row",
     alignItems: "center"
@@ -15,8 +16,7 @@ export default StyleSheet.create({
     top: -6,
     zIndex: 10,
     borderTopLeftRadius: 7,
-    borderTopRightRadius: 7,
-    overflow: "hidden"
+    borderTopRightRadius: 7
   },
 
   card: {
@@ -35,7 +35,7 @@ export default StyleSheet.create({
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 4 },
     elevation: 4,
-    position: "relative" // Needed for arrow
+    position: "relative" 
   },
 
   title: {
@@ -117,5 +117,36 @@ export default StyleSheet.create({
     transform: [{ translateY: -11 }],
     fontSize: 22,        // same size
     color: "#D1D5DB"    // same color
+  },
+
+  rowContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 18
+  },
+
+  dragHandle: {
+    width: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 6
+  },
+
+  removeButton: {
+    position: "absolute",
+    right: 10,     
+    top: 10,
+    zIndex: 20,
+    backgroundColor: "rgba(0,0,0,0.05)",  
+    paddingVertical: 2,
+    paddingHorizontal: 6,
+    borderRadius: 8
+  },
+
+
+  removeText: {
+    fontSize: 20,
+    color: "#999",
+    fontWeight: "bold"
   }
 });

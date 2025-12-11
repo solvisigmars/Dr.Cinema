@@ -7,10 +7,10 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useDispatch, useSelector } from "react-redux";
 
 import { fetchCinemas } from "@/src/redux/features/cinema/cinema-slice";
 import { AppDispatch, RootState } from "@/src/redux/store";

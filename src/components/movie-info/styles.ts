@@ -9,6 +9,7 @@ export default StyleSheet.create({
   },
 
   poster: {
+    marginTop: 70,
     width: "100%",
     height: 270,
     aspectRatio: 2/3,

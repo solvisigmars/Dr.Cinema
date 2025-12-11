@@ -25,8 +25,8 @@ export default function RootLayout() {
 
           // ⭐ Fixes white flash when navigating to ANY Stack screen
           contentStyle: {
-            backgroundColor: "#2F3338",
-          },
+            backgroundColor: "#2F3338"
+          }
         }}
       >
         {/* Tabs Layout */}
@@ -37,7 +37,7 @@ export default function RootLayout() {
           name="cinema/[id]"
           options={{
             headerShown: false,
-            contentStyle: { backgroundColor: "#2F3338" }, // ensure dark bg
+            contentStyle: { backgroundColor: "#2F3338" } // ensure dark bg
           }}
         />
 
@@ -45,8 +45,8 @@ export default function RootLayout() {
         <Stack.Screen
           name="movie/[id]"
           options={{
-            headerShown: true,
-            contentStyle: { backgroundColor: "#2F3338" }, // prevent white flash
+            headerShown: false,
+            contentStyle: { backgroundColor: "#2F3338" } // prevent white flash
           }}
         />
       </Stack>

@@ -10,7 +10,7 @@ export default function MovieShowtimes({movie, cinemaId}: {movie: Movie, cinemaI
       <Text style = {styles.title}>Sýningar</Text>
 
       {!showtimes ? (
-        <Text>Engar sýningar</Text>
+        <Text></Text>
       ) : (
         <View style = {styles.grid}>
           {showtimes.schedule.map((s, index) => (

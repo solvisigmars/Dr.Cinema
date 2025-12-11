@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-
 export default StyleSheet.create({
   screen: {
     flex: 1,
@@ -59,5 +58,24 @@ export default StyleSheet.create({
     color: "#EF4444",
     fontSize: 16,
     textAlign: "center"
+  },
+
+  favourite: {
+    position: "absolute",
+    top: 50,         // ← same height as back button
+    right: 16,
+    zIndex: 50,
+    backgroundColor: "rgba(0,0,0,0.3)",
+    padding: 6,
+    borderRadius: 20
+  },
+
+  sideButton: {
+    position: "absolute",
+    top: 50,
+    left: 16,
+    zIndex: 50,
+    padding: 6,
+    borderRadius: 20
   }
 });
