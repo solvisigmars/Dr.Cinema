@@ -60,14 +60,15 @@ export default function HomeScreen() {
 
   const filteredMovies = useMemo(() => {
     return movies.filter((movie) => {
+    // Title
       if (
         filters.title &&
-        !movie.title.toLowerCase().includes(filters.title.toLowerCase())
-      )
-        return false;
+      !movie.title.toLowerCase().includes(filters.title.toLowerCase())
+      ) return false;
 
-      const imdb = movie.omdb?.[0]?.imdbRating
-        ? Number(movie.omdb[0].imdbRating)
+      // IMDb
+      const imdb = movie.ratings?.imdb
+        ? Number(movie.ratings.imdb)
         : null;
 
       if (filters.imdbMin !== null && (imdb === null || imdb < filters.imdbMin))
@@ -76,9 +77,10 @@ export default function HomeScreen() {
       if (filters.imdbMax !== null && (imdb === null || imdb > filters.imdbMax))
         return false;
 
-      const rtCritics = movie.ratings?.rotten_critics ?? null;
-      const rtAudience = movie.ratings?.rotten_audience ?? null;
-      const rt = rtCritics ?? rtAudience ?? null;
+      // Rotten Tomatoes 
+      const rt = movie.ratings?.rotten_critics
+        ? Number(movie.ratings.rotten_critics)
+        : null;
 
       if (filters.rtMin !== null && (rt === null || rt < filters.rtMin))
         return false;
@@ -86,41 +88,44 @@ export default function HomeScreen() {
       if (filters.rtMax !== null && (rt === null || rt > filters.rtMax))
         return false;
 
+
+      // Showtime range
       if (filters.showStart || filters.showEnd) {
         const start = filters.showStart ?? "00:00";
         const end = filters.showEnd ?? "23:59";
 
-        const times = movie.showtimes.flatMap((group) =>
-          group.schedule.map((s) => s.time)
+        const times = movie.showtimes.flatMap(group =>
+          group.schedule.map(s => s.time)
         );
 
-        const inRange = times.some((t) => t >= start && t <= end);
-
+        const inRange = times.some(t => t >= start && t <= end);
         if (!inRange) return false;
       }
 
-      const actorNames = movie.actors_abridged.map((a) =>
+      // Actors 
+      const actorNames = (movie.actors_abridged ?? []).map(a =>
         a.name.toLowerCase()
       );
 
-      if (
-        filters.actors.length > 0 &&
-        !filters.actors.some((actor) => actorNames.includes(actor.toLowerCase()))
-      )
-        return false;
+      if (filters.actors.length > 0) {
+        const actorMatch = filters.actors.some(actor =>
+          actorNames.some(name => name.includes(actor.toLowerCase()))
+        );
+        if (!actorMatch) return false;
+      }
 
-      const directorNames = movie.directors_abridged.map((d) =>
+      // Directors 
+      const directorNames = (movie.directors_abridged ?? []).map(d =>
         d.name.toLowerCase()
       );
 
-      if (
-        filters.directors.length > 0 &&
-        !filters.directors.some((dir) =>
-          directorNames.includes(dir.toLowerCase())
-        )
-      )
-        return false;
-
+      if (filters.directors.length > 0) {
+        const directorMatch = filters.directors.some(dir =>
+          directorNames.some(name => name.includes(dir.toLowerCase()))
+        );
+        if (!directorMatch) return false;
+      }
+      // PG Rating
       const pg = movie.certificate?.is ?? null;
       if (filters.pgRating && pg !== filters.pgRating) return false;
 

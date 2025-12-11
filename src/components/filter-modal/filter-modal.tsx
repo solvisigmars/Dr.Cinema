@@ -29,6 +29,14 @@ export default function FilterModal({ visible, onClose }: Props) {
   const dispatch = useAppDispatch();
   const filters = useAppSelector((state) => state.filters);
 
+  const movies = useAppSelector((state) => state.movies.items);
+
+  const allPgRatings = [...new Set(
+    movies
+      .map((m) => m.certificate?.is?.toString().trim())
+      .filter(Boolean)
+  )];
+
   return (
     <Modal visible={visible} transparent animationType="slide">
       <View style={styles.overlay}>
@@ -172,14 +180,28 @@ export default function FilterModal({ visible, onClose }: Props) {
 
             {/* PG rating */}
             <Text style={styles.label}>PG rating</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="e.g. PG, PG-13, R"
-              value={filters.pgRating ?? ""}
-              onChangeText={(v) => dispatch(setPgRating(v || null))}
-            />
+            <View style={styles.dropdownBox}>
+              {allPgRatings.map((pg) => (
+                <TouchableOpacity
+                  key={pg}
+                  style={[
+                    styles.dropdownItem,
+                    filters.pgRating === pg && styles.dropdownItemSelected
+                  ]}
+                  onPress={() => dispatch(setPgRating(pg))}
+                >
+                  <Text style={styles.dropdownText}>{pg}</Text>
+                </TouchableOpacity>
+              ))}
 
-            <View style={{ height: 24 }} />
+              {/* Clear PG filter */}
+              <TouchableOpacity
+                style={styles.dropdownClear}
+                onPress={() => dispatch(setPgRating(null))}
+              >
+                <Text style={styles.dropdownText}>Clear</Text>
+              </TouchableOpacity>
+            </View>
           </ScrollView>
 
           {/* Buttons */}

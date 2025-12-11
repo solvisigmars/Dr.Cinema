@@ -70,5 +70,32 @@ export default StyleSheet.create({
   applyText: {
     color: "white",
     fontWeight: "600"
+  },
+
+  dropdownBox: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+    marginBottom: 12
+  },
+  dropdownItem: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
+    backgroundColor: "#E5E7EB"
+  },
+  dropdownItemSelected: {
+    backgroundColor: "#3B82F6"
+  },
+  dropdownText: {
+    color: "#1F2937",
+    fontWeight: "600"
+  },
+  dropdownClear: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
+    backgroundColor: "#F87171"
   }
+
 });
