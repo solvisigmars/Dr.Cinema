@@ -1,3 +1,5 @@
 import CinemaDetailScreen from "@/src/views/cinema-detail-screen/cinema-detail-screen";
 
-export default CinemaDetailScreen;
+export default function CinemaDetailRoute() {
+  return <CinemaDetailScreen />;
+}

@@ -10,6 +10,7 @@ import {
   View,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { fetchCinemas } from "@/src/redux/features/cinema/cinema-slice";
 import { AppDispatch, RootState } from "@/src/redux/store";
@@ -65,26 +66,20 @@ export default function CinemasScreen() {
     );
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen}>
       <View style={styles.headerBackground} />
 
       <View style={styles.container}>
-        {/* SEARCH BAR */}
-        <View style={styles.searchRow}>
-          <View style={styles.searchBar}>
-            <Ionicons name="search" size={18} color="#9CA3AF" />
-            <TextInput
-              placeholder="Search cinemas…"
-              placeholderTextColor="#9CA3AF"
-              style={styles.searchInput}
-              value={search}
-              onChangeText={setSearch}
-            />
-          </View>
-
-          <TouchableOpacity style={styles.filterButton}>
-            <Ionicons name="options-outline" size={20} color="white" />
-          </TouchableOpacity>
+        {/* SEARCH BAR (now sits BELOW the safe area) */}
+        <View style={styles.searchBar}>
+          <Ionicons name="search" size={18} color="#9CA3AF" />
+          <TextInput
+            placeholder="Search cinemas…"
+            placeholderTextColor="#9CA3AF"
+            style={styles.searchInput}
+            value={search}
+            onChangeText={setSearch}
+          />
         </View>
 
         {/* CINEMA LIST */}
@@ -95,51 +90,58 @@ export default function CinemasScreen() {
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
             <View style={styles.card}>
-
-              {/* row: left info + right buttons */}
-              <View style={styles.rowBetween}>
-                {/* LEFT SIDE */}
+              <TouchableOpacity
+                style={styles.cardTouch}
+                onPress={() => openCinema(item.id)}
+                activeOpacity={0.8}
+              >
                 <View style={{ flex: 1 }}>
                   <Text style={styles.cinemaName}>{item.name}</Text>
-
                   <Text style={styles.addressText}>
                     {item.address}, {item.city}
                   </Text>
 
-                  {/* MAP BUTTON */}
-                  <TouchableOpacity
-                    style={styles.mapButton}
-                    onPress={() => openMap(item)}
-                  >
-                    <Ionicons name="map-outline" size={16} color="#34D399" />
-                    <Text style={styles.mapButtonText}>Open in Google Maps</Text>
-                  </TouchableOpacity>
-                </View>
-
-                {/* RIGHT SIDE */}
-                <View style={styles.rightColumn}>
-                  {item.website && (
+                  {/* BUTTON ROW */}
+                  <View style={styles.buttonRow}>
                     <TouchableOpacity
-                      style={styles.websiteButton}
-                      onPress={() => openWebsite(item.website)}
+                      style={styles.mapsPill}
+                      onPress={() => openMap(item)}
                     >
-                      <Ionicons name="globe-outline" size={20} color="#60A5FA" />
+                      <Ionicons
+                        name="navigate-outline"
+                        size={18}
+                        color="white"
+                      />
+                      <Text style={styles.pillText}>Maps</Text>
                     </TouchableOpacity>
-                  )}
 
-                  <TouchableOpacity
-                    style={styles.arrowButton}
-                    onPress={() => openCinema(item.id)}
-                  >
-                    <Ionicons name="chevron-forward" size={22} color="#D1D5DB" />
-                  </TouchableOpacity>
+                    {item.website && (
+                      <TouchableOpacity
+                        style={styles.websitePill}
+                        onPress={() => openWebsite(item.website)}
+                      >
+                        <Ionicons
+                          name="globe-outline"
+                          size={18}
+                          color="white"
+                        />
+                        <Text style={styles.pillText}>Website</Text>
+                      </TouchableOpacity>
+                    )}
+                  </View>
                 </View>
-              </View>
 
+                <Ionicons
+                  name="chevron-forward"
+                  size={22}
+                  color="#D1D5DB"
+                  style={styles.arrowIcon}
+                />
+              </TouchableOpacity>
             </View>
           )}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

@@ -1,61 +1,107 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-  container: {
-    padding: 16,
+  screen: {
+    flex: 1,
+    backgroundColor: "#2F3338",
+    paddingTop: 60,
+    paddingHorizontal: 16,
   },
 
-  center: {
-    flex: 1,
+  /* 🔙 TOP BAR */
+  topBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 20,
+  },
+
+  sideButton: {
+    width: 40,
+    height: 40,
     justifyContent: "center",
     alignItems: "center",
   },
 
-  title: {
-    fontSize: 28,
-    fontWeight: "bold",
-    marginBottom: 10,
+  headerTitle: {
+    flex: 1,
+    textAlign: "center",
+    color: "white",
+    fontSize: 22,
+    fontWeight: "700",
+    marginHorizontal: 12,
+  },
+
+  /* 🔘 TABS */
+  tabs: {
+    flexDirection: "row",
+    marginBottom: 16,
+    gap: 10,
+  },
+
+  tab: {
+    flex: 1,
+    backgroundColor: "#1E2227",
+    paddingVertical: 12,
+    borderRadius: 14,
+    alignItems: "center",
+  },
+
+  tabActive: {
+    backgroundColor: "#3A3F45",
+  },
+
+  tabText: {
+    color: "white",
+    fontWeight: "600",
+    fontSize: 15,
+  },
+
+  /* CONTENT */
+  content: {
+    paddingBottom: 60,
+  },
+
+  detailBox: {
+    backgroundColor: "#3A3F45",
+    padding: 16,
+    borderRadius: 14,
+  },
+
+  detailText: {
+    color: "#E5E7EB",
+    fontSize: 15,
+    marginBottom: 12,
   },
 
   description: {
-    fontSize: 16,
-    opacity: 0.7,
-    marginBottom: 20,
+    color: "#D1D5DB",
+    fontSize: 14,
+    marginBottom: 16,
   },
 
-  section: {
-    marginBottom: 20,
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 12,
+    gap: 8,
   },
 
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: "600",
-    marginBottom: 6,
-  },
-
-  link: {
-    color: "#007AFF",
+  detailLink: {
+    color: "white",
+    fontSize: 15,
     textDecorationLine: "underline",
   },
 
-  movieCard: {
-    paddingVertical: 10,
-    borderBottomColor: "#ccc",
-    borderBottomWidth: 1,
+  /* ERROR + CENTERED */
+  center: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
 
-  movieTitle: {
+  error: {
+    color: "white",
     fontSize: 18,
-    fontWeight: "bold",
-  },
-
-  genres: {
-    opacity: 0.6,
-  },
-
-  showtime: {
-    marginTop: 4,
-    paddingVertical: 4,
-    color: "#007AFF",
   },
 });

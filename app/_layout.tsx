@@ -17,14 +17,38 @@ function LoadAuthToken() {
 export default function RootLayout() {
   return (
     <Provider store={store}>
-      {/* This triggers token fetch ONCE */}
       <LoadAuthToken />
 
-      <Stack screenOptions={{ headerShown: false }}>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+
+          // ⭐ Fixes white flash when navigating to ANY Stack screen
+          contentStyle: {
+            backgroundColor: "#2F3338",
+          },
+        }}
+      >
+        {/* Tabs Layout */}
         <Stack.Screen name="(tabs)" />
 
-        <Stack.Screen name="cinema/[id]" options={{ headerShown: true }} />
-        <Stack.Screen name="movie/[id]" options={{ headerShown: true }} />
+        {/* Cinema Detail Screen */}
+        <Stack.Screen
+          name="cinema/[id]"
+          options={{
+            headerShown: false,
+            contentStyle: { backgroundColor: "#2F3338" }, // ensure dark bg
+          }}
+        />
+
+        {/* Movie Detail Screen */}
+        <Stack.Screen
+          name="movie/[id]"
+          options={{
+            headerShown: true,
+            contentStyle: { backgroundColor: "#2F3338" }, // prevent white flash
+          }}
+        />
       </Stack>
     </Provider>
   );
