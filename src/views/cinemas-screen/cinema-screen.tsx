@@ -26,6 +26,9 @@ export default function CinemasScreen() {
     error
   } = useSelector((state: RootState) => state.cinemas);
 
+  // 🔥 REQUIRED: Get API token (the real one)
+  const { apiToken } = useSelector((state: RootState) => state.auth);
+
   const [search, setSearch] = useState("");
 
   const filtered = useMemo(() => {
@@ -36,9 +39,12 @@ export default function CinemasScreen() {
     );
   }, [cinemas, search]);
 
+  // ✅ FIX: Only load cinemas AFTER apiToken is ready
   useEffect(() => {
-    if (status === "idle") dispatch(fetchCinemas());
-  }, [status]);
+    if (apiToken && status === "idle") {
+      dispatch(fetchCinemas());
+    }
+  }, [apiToken, status, dispatch]);
 
   const openCinema = (id: number) => router.push(`/cinema/${id}`);
 
@@ -56,26 +62,40 @@ export default function CinemasScreen() {
     Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${query}`);
   };
 
-  if (status === "loading")
+  // TOKEN STILL LOADING
+  if (!apiToken) {
+    return (
+      <View style={styles.center}>
+        <Text style={styles.loadingText}>Sæki lykil…</Text>
+      </View>
+    );
+  }
+
+  // DATA LOADING
+  if (status === "loading") {
     return (
       <View style={styles.center}>
         <Text style={styles.loadingText}>Finding the best cinemas… 🎬</Text>
       </View>
     );
+  }
 
-  if (error)
+  // ERROR
+  if (error) {
     return (
       <View style={styles.center}>
         <Text style={styles.errorText}>{error}</Text>
       </View>
     );
+  }
 
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.headerBackground} />
 
       <View style={styles.container}>
-        {/* SEARCH BAR (now sits BELOW the safe area) */}
+
+        {/* SEARCH BAR */}
         <View style={styles.searchBar}>
           <Ionicons name="search" size={18} color="#9CA3AF" />
           <TextInput
@@ -106,17 +126,12 @@ export default function CinemasScreen() {
                     {item.address}, {item.city}
                   </Text>
 
-                  {/* BUTTON ROW */}
                   <View style={styles.buttonRow}>
                     <TouchableOpacity
                       style={styles.mapsPill}
                       onPress={() => openMap(item)}
                     >
-                      <Ionicons
-                        name="navigate-outline"
-                        size={18}
-                        color="white"
-                      />
+                      <Ionicons name="navigate-outline" size={18} color="white" />
                       <Text style={styles.pillText}>Maps</Text>
                     </TouchableOpacity>
 
@@ -125,11 +140,7 @@ export default function CinemasScreen() {
                         style={styles.websitePill}
                         onPress={() => openWebsite(item.website)}
                       >
-                        <Ionicons
-                          name="globe-outline"
-                          size={18}
-                          color="white"
-                        />
+                        <Ionicons name="globe-outline" size={18} color="white" />
                         <Text style={styles.pillText}>Website</Text>
                       </TouchableOpacity>
                     )}

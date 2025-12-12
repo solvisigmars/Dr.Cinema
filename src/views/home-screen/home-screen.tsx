@@ -15,11 +15,15 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import styles from "./styles";
 
+/* ================= TYPES ================= */
+
 type CinemaGroup = {
   cinemaId: number;
   cinemaName: string;
   movies: Movie[];
 };
+
+/* ================= HELPERS ================= */
 
 function groupMoviesByCinema(movies: Movie[]): CinemaGroup[] {
   const groups: Record<number, CinemaGroup> = {};
@@ -59,23 +63,33 @@ export default function HomeScreen() {
   const dispatch = useAppDispatch();
   const [showFilters, setShowFilters] = useState(false);
 
-  const {
-    items: movies,
-    status,
-    error
-  } = useAppSelector((state) => state.movies);
+  // 🎬 Movies state
+  const { items: movies, status, error } = useAppSelector(
+    (state) => state.movies
+  );
 
-  const filters = useAppSelector((state) => state.filters);
+  // 🔐 API token (MJÖG MIKILVÆGT)
+  const apiToken = useAppSelector((state) => state.auth.apiToken);
 
+  // ⭐ Load movies ONLY when API token is ready
   useEffect(() => {
-    dispatch(fetchMovies());
-  }, []);
+    if (!apiToken) return;
+    if (status === "idle") {
+      dispatch(fetchMovies());
+    }
+  }, [apiToken, status, dispatch]);
+
+  // ⭐ Filters
+  const filters = useAppSelector((state) => state.filters);
 
   const filteredMovies = useMemo(() => {
     return movies.filter((movie) => {
       // Title
       if (
         filters.title &&
+        !movie.title.toLowerCase().includes(filters.title.toLowerCase())
+      )
+        return false;
         !movie.title.toLowerCase().includes(filters.title.toLowerCase())
       )
         return false;
@@ -152,23 +166,39 @@ export default function HomeScreen() {
     [filteredMovies]
   );
 
-  if (status === "loading") {
+  /* ================= STATES ================= */
+
+  // Waiting for API token
+  if (!apiToken) {
     return (
       <View style={styles.center}>
         <ActivityIndicator size="large" color="white" />
-        <Text style={styles.loadingText}>Loading Movies…</Text>
+        <Text style={styles.loadingText}>Sæki aðgang…</Text>
       </View>
     );
   }
 
+  // Loading movies
+  if (status === "loading") {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator size="large" color="white" />
+        <Text style={styles.loadingText}>Sæki myndir…</Text>
+      </View>
+    );
+  }
+
+  // Error
   if (status === "failed") {
     return (
       <View style={styles.center}>
-        <Text style={styles.errorText}>Error loading movies</Text>
+        <Text style={styles.errorText}>Villa við að sækja myndir</Text>
         <Text style={styles.errorText}>{error}</Text>
       </View>
     );
   }
+
+  /* ================= UI ================= */
 
   return (
     <View style={styles.screen}>

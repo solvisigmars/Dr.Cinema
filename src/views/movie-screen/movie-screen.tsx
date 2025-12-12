@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect } from "react";
+import { ScrollView, Text, TouchableOpacity, View, Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useLocalSearchParams, useRouter } from "expo-router";
 
 import MovieInfo from "@/src/components/movie-info/movie-info";
 import MovieShowtimes from "@/src/components/movie-showtimes/movie-showtimes";
@@ -32,11 +33,11 @@ export default function MovieScreen() {
 
   const { items: movies, status } = useAppSelector((state) => state.movies);
   const favourites = useAppSelector((state) => state.favourites.items);
+  const user = useAppSelector((state) => state.auth.user);
+
   useEffect(() => {
-    if (status === "idle") {
-      dispatch(fetchMovies());
-    }
-  }, [status]);
+    if (status === "idle") dispatch(fetchMovies());
+  }, [status, dispatch]);
 
   const movie = movies.find((m) => m.id === Number(id));
 
@@ -51,8 +52,30 @@ export default function MovieScreen() {
   const isFavourite = favourites.some((m) => m.id === movie.id);
 
   const toggleFavourite = () => {
-    if (isFavourite) dispatch(removeFavourite(movie.id));
-    else dispatch(addFavourite(movie));
+    if (!user) {
+      Alert.alert(
+        "Innskráning nauðsynleg",
+        "Skráðu þig inn til að nota uppáhöld"
+      );
+      return;
+    }
+
+    let updated;
+
+    if (isFavourite) {
+      dispatch(removeFavourite(movie.id));
+      updated = favourites.filter((m) => m.id !== movie.id);
+    } else {
+      dispatch(addFavourite(movie));
+      updated = [...favourites, movie];
+    }
+
+    dispatch(
+      saveFavouritesForUser({
+        email: user.email,
+        items: updated,
+      })
+    );
   };
 
   return (
@@ -68,7 +91,7 @@ export default function MovieScreen() {
         <TouchableOpacity onPress={toggleFavourite} style={styles.favourite}>
           <Ionicons
             name={isFavourite ? "heart" : "heart-outline"}
-            size={26}
+            size={28}
             color={isFavourite ? "#FF4D4D" : "white"}
           />
         </TouchableOpacity>
@@ -91,14 +114,12 @@ export default function MovieScreen() {
       {/* MOVIE INFO COMPONENT */}
       <MovieInfo movie={movie} />
 
-      {/* SHOWTIMES (only if cinemaId exists) */}
-      {cinemaId && (
-        <MovieShowtimes movie={movie} cinemaId={Number(cinemaId)} />
-      )}
+        {cinemaId && (
+          <MovieShowtimes movie={movie} cinemaId={Number(cinemaId)} />
+        )}
 
-      {/* TRAILER */}
-      <TrailerPlayer movie={movie} />
-    </ScrollView>
->>>>>>> 212a453 (local work in progress)
+        <TrailerPlayer movie={movie} />
+      </ScrollView>
+    </View>
   );
 }

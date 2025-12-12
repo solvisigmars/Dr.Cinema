@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   cardWrapper: {
     width: 170,
-    marginRight: 16
+    marginRight: 16,
   },
 
   poster: {
@@ -11,6 +11,18 @@ export default StyleSheet.create({
     height: 250,
     borderRadius: 8,
     backgroundColor: "#111"
+    borderRadius: 0,
+    backgroundColor: "#111",
+  },
+
+  /* ❤️ NEW */
+  favouriteButton: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    backgroundColor: "rgba(0,0,0,0.6)",
+    borderRadius: 20,
+    padding: 6,
   },
 
   infoBlock: {
@@ -23,19 +35,19 @@ export default StyleSheet.create({
     shadowColor: "#000",
     shadowOpacity: 0.12,
     shadowRadius: 6,
-    shadowOffset: { width: 0, height: 4 }
+    shadowOffset: { width: 0, height: 4 },
   },
 
   title: {
     fontSize: 15,
     fontWeight: "700",
-    color: "#111827"
+    color: "#111827",
   },
 
   year: {
     fontSize: 13,
     color: "#6B7280",
-    marginTop: 2
+    marginTop: 2,
   },
 
   genres: {

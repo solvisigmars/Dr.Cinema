@@ -46,13 +46,13 @@ export default function CinemaMovieCard({ movie, cinemaId }: Props) {
         </Text>
 
         {/* DIRECTOR */}
-        <Text style={styles.label}>Director</Text>
+        <Text style={styles.label}>Leikstjóri</Text>
         <Text style={styles.text}>
           {movie.directors_abridged.map((d) => d.name).join(", ")}
         </Text>
 
         {/* ACTORS */}
-        <Text style={styles.label}>Actors</Text>
+        <Text style={styles.label}>Leikarar</Text>
         <Text numberOfLines={1} style={styles.text}>
           {movie.actors_abridged.map((a) => a.name).join(", ")}
         </Text>

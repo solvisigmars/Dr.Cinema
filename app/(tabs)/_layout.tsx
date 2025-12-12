@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
@@ -37,10 +38,62 @@ export default function RootLayout() {
           }
         }}
       >
-        <Tabs.Screen name="home" options={{ title: "Home" }} />
-        <Tabs.Screen name="cinemas" options={{ title: "Cinemas" }} />
-        <Tabs.Screen name="upcoming" options={{ title: "Upcoming" }} />
-        <Tabs.Screen name="favourites" options={{ title: "Favourites" }} />
+
+        {/* HOME TAB */}
+        <Tabs.Screen
+          name="home"
+          options={{
+            title: "Home",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="home" color={color} size={size} />
+            )
+          }}
+        />
+
+        {/* CINEMAS TAB */}
+        <Tabs.Screen
+          name="cinemas"
+          options={{
+            title: "Cinemas",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="film" color={color} size={size} />
+            )
+          }}
+        />
+
+        {/* UPCOMING TAB */}
+        <Tabs.Screen
+          name="upcoming"
+          options={{
+            title: "Upcoming",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="time" color={color} size={size} />
+            )
+          }}
+        />
+
+        {/* UPCOMING TAB */}
+        <Tabs.Screen
+          name="favourites"
+          options={{
+            title: "Favourites",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="heart" color={color} size={size} />
+            )
+          }}
+        />
+
+        {/* PROFILE TAB */}
+        <Tabs.Screen
+          name="profile"
+          options={{
+            title: "Profile",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="person" color={color} size={size} />
+            )
+          }}
+        />
+
       </Tabs>
     </GestureHandlerRootView>
   );

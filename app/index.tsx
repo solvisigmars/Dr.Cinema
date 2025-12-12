@@ -1,8 +1,4 @@
-import { authenticateUser } from "@/src/redux/features/auth/auth-slice";
-import { AppDispatch, RootState } from "@/src/redux/store";
 import { Redirect } from "expo-router";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 export default function Index() {
   const dispatch = useDispatch<AppDispatch>();

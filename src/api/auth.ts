@@ -1,3 +1,4 @@
+// src/api/auth.ts
 import axios from "axios";
 import { Buffer } from "buffer"; // needed in React Native
 
@@ -13,8 +14,8 @@ export const getToken = async (
     null,
     {
       headers: {
-        Authorization: `Basic ${encoded}`
-      }
+        Authorization: `Basic ${encoded}`,
+      },
     }
   );
 
