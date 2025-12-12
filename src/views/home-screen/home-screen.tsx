@@ -10,7 +10,7 @@ import {
   FlatList,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import styles from "./styles";
@@ -58,6 +58,8 @@ function normaliseTime(raw: string): string | null {
   return `${hours}:${minutes}`;
 }
 
+/* ================= SCREEN ================= */
+
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const dispatch = useAppDispatch();
@@ -68,7 +70,7 @@ export default function HomeScreen() {
     (state) => state.movies
   );
 
-  // 🔐 API token (MJÖG MIKILVÆGT)
+  // 🔐 API token
   const apiToken = useAppSelector((state) => state.auth.apiToken);
 
   // ⭐ Load movies ONLY when API token is ready
@@ -88,11 +90,9 @@ export default function HomeScreen() {
       if (
         filters.title &&
         !movie.title.toLowerCase().includes(filters.title.toLowerCase())
-      )
+      ) {
         return false;
-        !movie.title.toLowerCase().includes(filters.title.toLowerCase())
-      )
-        return false;
+      }
 
       // IMDb
       const imdb = movie.ratings?.imdb ? Number(movie.ratings.imdb) : null;
@@ -130,6 +130,7 @@ export default function HomeScreen() {
 
         if (!hasShowtimeInRange) return false;
       }
+
       // Actors
       const actorNames = (movie.actors_abridged ?? []).map((a) =>
         a.name.toLowerCase()
@@ -153,6 +154,7 @@ export default function HomeScreen() {
         );
         if (!directorMatch) return false;
       }
+
       // PG Rating
       const pg = movie.certificate?.is ?? null;
       if (filters.pgRating && pg !== filters.pgRating) return false;
@@ -168,7 +170,6 @@ export default function HomeScreen() {
 
   /* ================= STATES ================= */
 
-  // Waiting for API token
   if (!apiToken) {
     return (
       <View style={styles.center}>
@@ -178,7 +179,6 @@ export default function HomeScreen() {
     );
   }
 
-  // Loading movies
   if (status === "loading") {
     return (
       <View style={styles.center}>
@@ -188,7 +188,6 @@ export default function HomeScreen() {
     );
   }
 
-  // Error
   if (status === "failed") {
     return (
       <View style={styles.center}>

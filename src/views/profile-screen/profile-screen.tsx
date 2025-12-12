@@ -8,13 +8,18 @@ import styles from "./styles";
 export default function ProfileScreen() {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { user } = useAppSelector((state) => state.auth);
+
+  const user = useAppSelector((state) => state.auth.user);
+  const favouritesCount = useAppSelector(
+    (state) => state.favourites.items.length
+  );
 
   // NOT LOGGED IN → Show login/register screen
   if (!user) {
     return (
       <View style={styles.centerScreen}>
         <Text style={styles.loginHeader}>Velkomin!</Text>
+
         <TouchableOpacity
           style={styles.loginButton}
           onPress={() => router.push("/auth/login")}
@@ -57,9 +62,10 @@ export default function ProfileScreen() {
 
       <View style={styles.statsCard}>
         <Text style={styles.statsHeader}>Tölfræði</Text>
+
         <View style={styles.statsRow}>
           <View style={styles.statBox}>
-            <Text style={styles.statNumber}>0</Text>
+            <Text style={styles.statNumber}>{favouritesCount}</Text>
             <Text style={styles.statLabel}>Uppáhalds</Text>
           </View>
 

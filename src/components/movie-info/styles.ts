@@ -9,31 +9,12 @@ export default StyleSheet.create({
   },
 
   poster: {
-<<<<<<< HEAD
     marginTop: 70,
     width: "100%",
     height: 270,
     aspectRatio: 2/3,
     borderRadius: 10,
     alignSelf: "center"
-=======
-    width: "90%",
-    height: 300,
-    borderRadius: 12,
-  },
-
-  arrow: {
-    position: "absolute",
-    right: 20,
-    top: "50%",
-    transform: [{ translateY: -12 }],
-    color: "#D1D5DB",
-    fontSize: 26,
-  },
-
-  infoBox: {
-    padding: 16,
->>>>>>> 212a453 (local work in progress)
   },
 
   title: {
@@ -54,7 +35,6 @@ export default StyleSheet.create({
     color: textLight,
     marginBottom: 6,
   },
-<<<<<<< HEAD
 
   row: {
     flexDirection: "row",
@@ -105,6 +85,3 @@ export default StyleSheet.create({
     fontWeight: "700"
   }
 });
-=======
-});
->>>>>>> 212a453 (local work in progress)

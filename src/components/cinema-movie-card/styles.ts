@@ -14,15 +14,9 @@ export default StyleSheet.create({
     left: 0,
     top: -6,
     zIndex: 10,
-<<<<<<< HEAD
-    borderTopLeftRadius: 7,
-    borderTopRightRadius: 7,
-    overflow: "hidden"
-=======
     borderTopLeftRadius: 4,
     borderTopRightRadius: 4,
     overflow: "hidden",
->>>>>>> 212a453 (local work in progress)
   },
 
   card: {

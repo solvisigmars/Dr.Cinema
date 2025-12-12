@@ -10,7 +10,7 @@ export default StyleSheet.create({
     width: "100%",
     height: 250,
     borderRadius: 8,
-    backgroundColor: "#111"
+    backgroundColor: "#111",
     borderRadius: 0,
     backgroundColor: "#111",
   },

@@ -144,4 +144,32 @@ export default StyleSheet.create({
     left: 20,
     zIndex: 20,
   },
+
+  /* ================= ADDED FOR REGISTER SCREEN ================= */
+
+  container: {
+    flex: 1,
+    backgroundColor: "#2F3338",
+    paddingHorizontal: 24,
+    justifyContent: "center",
+  },
+
+  button: {
+    backgroundColor: "#FF5A36",
+    width: "100%",
+    paddingVertical: 15,
+    borderRadius: 30,
+    alignItems: "center",
+    marginTop: 10,
+  },
+
+  buttonDisabled: {
+    opacity: 0.6,
+  },
+
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "600",
+  },
 });

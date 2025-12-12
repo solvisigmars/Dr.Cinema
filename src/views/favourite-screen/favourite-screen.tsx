@@ -1,36 +1,17 @@
 import FavouriteMovieCard from "@/src/components/favourite-movie-card/favourite-movie-card";
-import {
-  loadFavouritesFromStorage,
-  reorderFavourites,
-} from "@/src/redux/features/favourite/favourite-slice";
-import { AppDispatch, RootState } from "@/src/redux/store";
-import { useEffect } from "react";
-import { Alert, Text, View } from "react-native";
+import { reorderFavourites } from "@/src/redux/features/favourite/favourite-slice";
+import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
+import { Text, View } from "react-native";
 import DraggableFlatList from "react-native-draggable-flatlist";
-import { useDispatch, useSelector } from "react-redux";
 import styles from "./styles";
 
+/* ================= SCREEN ================= */
+
 export default function FavouritesScreen() {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
-  const favourites = useSelector(
-    (state: RootState) => state.favourites.items
-  );
-
-  const user = useSelector((state: RootState) => state.auth.user);
-
-  useEffect(() => {
-    if (!user) {
-      Alert.alert(
-        "Innskráning nauðsynleg",
-        "Þú þarft að skrá þig inn til að nota uppáhöld.",
-        [{ text: "OK" }]
-      );
-      return;
-    }
-
-    dispatch(loadFavouritesFromStorage());
-  }, [user, dispatch]);
+  const favourites = useAppSelector((state) => state.favourites.items);
+  const user = useAppSelector((state) => state.auth.user);
 
   // 🚫 Not logged in
   if (!user) {
@@ -77,4 +58,3 @@ export default function FavouritesScreen() {
     </View>
   );
 }
-

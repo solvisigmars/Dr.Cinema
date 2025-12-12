@@ -35,7 +35,6 @@ export default StyleSheet.create({
   loadingText: {
     color: "white",
     fontSize: 16,
-<<<<<<< HEAD
     textAlign: "center"
   },
 
@@ -57,7 +56,4 @@ export default StyleSheet.create({
     padding: 6,
     borderRadius: 20
   }
-=======
-  },
->>>>>>> 212a453 (local work in progress)
 });
