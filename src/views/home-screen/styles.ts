@@ -3,7 +3,8 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: "#2F3338"
+    backgroundColor: "#2F3338",
+    marginBottom: 80
   },
 
   headerBackground: {

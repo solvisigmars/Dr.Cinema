@@ -6,7 +6,8 @@ export default StyleSheet.create({
     backgroundColor: "#2F3338",
     paddingHorizontal: 16,
     paddingTop: 60,
-    paddingBottom: 60
+    paddingBottom: 60,
+    marginBottom: 80
   },
 
   header: {
