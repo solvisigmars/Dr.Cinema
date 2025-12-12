@@ -22,7 +22,6 @@ export default StyleSheet.create({
     paddingTop: 10
   },
 
-  /* SEARCH BAR */
   searchBar: {
     flexDirection: "row",
     alignItems: "center",
@@ -31,7 +30,7 @@ export default StyleSheet.create({
     paddingHorizontal: 16,
     height: 45,
     marginBottom: 18,
-    marginTop: 4 // under dynamic island
+    marginTop: 4
   },
 
   searchInput: {

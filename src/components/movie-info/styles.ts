@@ -42,5 +42,49 @@ export default StyleSheet.create({
   row: {
     flexDirection: "row",
     gap: 10
+  },
+
+  ratingRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 2
+  },
+
+  imdbBox: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginRight: 12
+  },
+
+  imdbLogo: {
+    width: 24,
+    height: 10,
+    marginRight: 4,
+    resizeMode: "contain"
+  },
+
+  imdbScore: {
+    fontWeight: "400",
+    color: textLight,  
+    fontSize: 12
+  },
+
+  rtBox: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginRight: 12
+  },
+
+  rtLogo: {
+    width: 15,
+    height: 15,
+    resizeMode: "contain",
+    marginRight: 4
+  },
+
+  rtScore: {
+    fontSize: 12,
+    color: textLight,
+    fontWeight: "700"
   }
 });

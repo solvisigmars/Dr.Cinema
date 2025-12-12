@@ -6,15 +6,13 @@ export default StyleSheet.create({
     marginRight: 16
   },
 
-  // Poster: SHARP edges
   poster: {
     width: "100%",
     height: 250,
-    borderRadius: 0,
+    borderRadius: 8,
     backgroundColor: "#111"
   },
 
-  // White rounded block under poster
   infoBlock: {
     backgroundColor: "#FFFFFF",
     paddingHorizontal: 12,
@@ -22,7 +20,6 @@ export default StyleSheet.create({
     borderBottomLeftRadius: 14,
     borderBottomRightRadius: 14,
 
-    // subtle shadow
     shadowColor: "#000",
     shadowOpacity: 0.12,
     shadowRadius: 6,
@@ -45,5 +42,51 @@ export default StyleSheet.create({
     fontSize: 12,
     color: "#6B7280",
     marginTop: 2
+  },
+
+  ratingRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 4,
+    marginBottom: 2,
+    height: 15
+  },
+
+  imdbBox: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginRight: 12
+  },
+
+  imdbLogo: {
+    width: 20,
+    height: 10,
+    marginRight: 4,
+    resizeMode: "contain"
+  },
+
+  imdbScore: {
+    fontWeight: "400",
+    color: "#555",
+    fontSize: 12
+  },
+
+  rtBox: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginRight: 12
+  },
+
+  rtLogo: {
+    width: 15,
+    height: 15,
+    resizeMode: "contain",
+    marginRight: 4
+  },
+
+  rtScore: {
+    fontSize: 12,
+    color: "#D63C2F",
+    fontWeight: "700"
   }
 });
