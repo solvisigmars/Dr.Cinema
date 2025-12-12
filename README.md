@@ -1,50 +1,72 @@
-# Welcome to your Expo app 👋
+Dr.Cinema
+## Description
+Dr.Cinema is a React Native app that displays movies that are playing in cinemas around the country. In the app users can see details about the movie and where that movie is being played and order a ticket in the app. The user will also be able to favourite a move and see a list of movies that are his favourite. User can also see details about each cinema and where that cinema is located and a link to the cinema website.
+## Table of Contents
+	-	Installation
+	-	Features
+	-	Technologies Used
+	-	Platform Support
+	-	Project Structure
+	-	Setup Instructions
+	-	Running the App
+	-	Testing
+	-	Screenshots
+	-	Known Issues
+	-	Future Improvements
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Running the app
+### Navigate to project directory
+`cd Dr.Cinema`
 
-## Get started
+### Install dependencies
+`npm install`
 
-1. Install dependencies
+### Running the App
+`npm start`
 
-   ```bash
-   npm install
-   ```
+## Technologies Used
+	-	React Native
+	-	React Navigation 
+	-	Typescript
+	-	AsyncStorage
+	-	React Redux
+	-	Axios
+	-	kvikmyndir.is API
 
-2. Start the app
+## Platform Support
 
-   ```bash
-   npx expo start
-   ```
+### Primary Development Platform
+	-	Primary Platform: iOS
+	-	Test Device: iphone 17 Pro Max Simulator
+	-	OS Version: iOS 26.1
 
-In the output, you'll find options to open the app in a
+### Secondary Platform Testing
+	-	Secondary Platform: iOS
+	-	Test Device: iPhone 13
+	-	OS Version: iOS 26.1
+	-	Testing Status: Partial
+	-	Known Platform-Specific Issues: Placehodler text not showing
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Platform-Specific Features
+	- Only state here if any
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Setup Instructions
 
-## Get a fresh project
+### Prerequisites
+	-	Node.js (v14 or higher)
+	-	npm or yarn
+	-	React Native CLI
+	-	Xcode (for iOS development)
+	-	Android Studio (for Android development)
 
-When you're ready, run:
+### Environment Setup
+	1.	Install React Native dependencies
+	2.	Configure development environment
+	3.	Set up emulators/simulators
 
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Known Issues
+  - Some movies do not have a trailer available 
+  - Some movies do not have a RT score 
+  - Some movies do not have a IMDB score
+  - Link to buy ticket is old and not updated
+  - Limited Android testing
