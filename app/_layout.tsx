@@ -1,17 +1,17 @@
 import { authenticateUser } from "@/src/redux/features/auth/auth-slice";
-import { store } from "@/src/redux/store";
+import { AppDispatch, store } from "@/src/redux/store";
 import { Stack } from "expo-router";
 import { useEffect } from "react";
 import { Provider, useDispatch } from "react-redux";
 
 function LoadAuthToken() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(authenticateUser());
   }, []);
 
-  return null; // invisible component
+  return null;
 }
 
 export default function RootLayout() {
@@ -23,7 +23,6 @@ export default function RootLayout() {
         screenOptions={{
           headerShown: false,
 
-          // ⭐ Fixes white flash when navigating to ANY Stack screen
           contentStyle: {
             backgroundColor: "#2F3338"
           }
@@ -37,7 +36,7 @@ export default function RootLayout() {
           name="cinema/[id]"
           options={{
             headerShown: false,
-            contentStyle: { backgroundColor: "#2F3338" } // ensure dark bg
+            contentStyle: { backgroundColor: "#2F3338" } 
           }}
         />
 
@@ -46,7 +45,7 @@ export default function RootLayout() {
           name="movie/[id]"
           options={{
             headerShown: false,
-            contentStyle: { backgroundColor: "#2F3338" } // prevent white flash
+            contentStyle: { backgroundColor: "#2F3338" } 
           }}
         />
       </Stack>

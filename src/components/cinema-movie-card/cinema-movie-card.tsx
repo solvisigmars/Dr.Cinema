@@ -5,7 +5,7 @@ import styles from "./styles";
 
 interface Props {
   movie: Movie;
-  cinemaId?: number
+  cinemaId?: number;
 }
 
 export default function CinemaMovieCard({ movie, cinemaId }: Props) {
@@ -14,16 +14,14 @@ export default function CinemaMovieCard({ movie, cinemaId }: Props) {
   const criticsScore = Number(movie.ratings?.rotten_critics ?? 0);
   const imdbScore = movie.ratings?.imdb ?? "-";
 
-  // Rotten Tomatoes Icon
   let criticsIcon = require("@/assets/images/rt_rotten.png");
   if (criticsScore >= 60) criticsIcon = require("@/assets/images/rt_fresh.png");
   if (criticsScore >= 75) criticsIcon = require("@/assets/images/rt_base.png");
 
-  // Safe fallback title
   const safeTitle =
     movie.title?.trim() ||
-    movie.original_title?.trim() ||
-    movie.title_local?.trim() ||
+    movie.title?.trim() ||
+    movie.alternativeTitles?.trim() ||
     "Untitled";
 
   return (
@@ -81,7 +79,6 @@ export default function CinemaMovieCard({ movie, cinemaId }: Props) {
           )}
         </View>
 
-        {/* ⭐ ARROW CENTER-RIGHT (identical style to CinemasScreen) */}
         <Text style={styles.arrow}>{">"}</Text>
       </View>
     </TouchableOpacity>

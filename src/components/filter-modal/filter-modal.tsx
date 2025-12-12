@@ -31,17 +31,18 @@ export default function FilterModal({ visible, onClose }: Props) {
 
   const movies = useAppSelector((state) => state.movies.items);
 
-  const allPgRatings = [...new Set(
-    movies
-      .map((m) => m.certificate?.is?.toString().trim())
-      .filter(Boolean)
-  )];
+  const allPgRatings = [
+    ...new Set(
+      movies
+        .map((m) => m.certificate?.is?.toString().trim())
+        .filter((pg): pg is string => pg !== undefined && pg !== "")
+    )
+  ];
 
   return (
     <Modal visible={visible} transparent animationType="slide">
       <View style={styles.overlay}>
         <View style={styles.modal}>
-          {/* Header */}
           <View style={styles.headerRow}>
             <Text style={styles.title}>Filters</Text>
             <TouchableOpacity onPress={onClose}>
@@ -50,7 +51,6 @@ export default function FilterModal({ visible, onClose }: Props) {
           </View>
 
           <ScrollView showsVerticalScrollIndicator={false}>
-            {/* Title */}
             <Text style={styles.label}>Title</Text>
             <TextInput
               style={styles.input}
@@ -59,7 +59,6 @@ export default function FilterModal({ visible, onClose }: Props) {
               onChangeText={(v) => dispatch(setTitle(v))}
             />
 
-            {/* IMDb rating */}
             <Text style={styles.label}>IMDb Rating</Text>
             <View style={styles.row}>
               <TextInput
@@ -90,7 +89,6 @@ export default function FilterModal({ visible, onClose }: Props) {
               />
             </View>
 
-            {/* Rotten Tomatoes */}
             <Text style={styles.label}>Rotten Tomatoes (%)</Text>
             <View style={styles.row}>
               <TextInput
@@ -121,7 +119,6 @@ export default function FilterModal({ visible, onClose }: Props) {
               />
             </View>
 
-            {/* Showtime */}
             <Text style={styles.label}>Showtime range</Text>
             <View style={styles.row}>
               <TextInput
@@ -138,13 +135,15 @@ export default function FilterModal({ visible, onClose }: Props) {
                 placeholder="To (22:00)"
                 onChangeText={(v) =>
                   dispatch(
-                    setShowtimeRange({ start: filters.showStart, end: v || null })
+                    setShowtimeRange({
+                      start: filters.showStart,
+                      end: v || null
+                    })
                   )
                 }
               />
             </View>
 
-            {/* Actors */}
             <Text style={styles.label}>Starring actors</Text>
             <TextInput
               style={styles.input}
@@ -161,7 +160,6 @@ export default function FilterModal({ visible, onClose }: Props) {
               }
             />
 
-            {/* Directors */}
             <Text style={styles.label}>Directors</Text>
             <TextInput
               style={styles.input}
@@ -178,7 +176,6 @@ export default function FilterModal({ visible, onClose }: Props) {
               }
             />
 
-            {/* PG rating */}
             <Text style={styles.label}>PG rating</Text>
             <View style={styles.dropdownBox}>
               {allPgRatings.map((pg) => (
@@ -194,7 +191,6 @@ export default function FilterModal({ visible, onClose }: Props) {
                 </TouchableOpacity>
               ))}
 
-              {/* Clear PG filter */}
               <TouchableOpacity
                 style={styles.dropdownClear}
                 onPress={() => dispatch(setPgRating(null))}
@@ -204,7 +200,6 @@ export default function FilterModal({ visible, onClose }: Props) {
             </View>
           </ScrollView>
 
-          {/* Buttons */}
           <View style={styles.buttonRow}>
             <TouchableOpacity
               style={styles.resetBtn}

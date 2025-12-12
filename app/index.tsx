@@ -12,9 +12,9 @@ export default function Index() {
     dispatch(authenticateUser());
   }, []);
 
-  // While token is loading, don't redirect yet
+  
   if (status === "loading" || !token) {
-    return null; // you can show a spinner here if you want
+    return null; 
   }
 
   return <Redirect href="/(tabs)/home" />;

@@ -44,7 +44,6 @@ export default function CinemaDetailScreen() {
     );
   }
 
-  // UNIQUE MOVIES PLAYING IN THIS CINEMA
   const moviesHere = Array.from(
     new Map(
       movies
@@ -54,9 +53,12 @@ export default function CinemaDetailScreen() {
   );
 
   const openWebsite = () => {
+    if (!cinema.website) return;
+
     const url = cinema.website.startsWith("http")
       ? cinema.website
       : `https://${cinema.website}`;
+
     Linking.openURL(url);
   };
 
@@ -72,7 +74,10 @@ export default function CinemaDetailScreen() {
     <View style={styles.screen}>
       {/* TOP BAR */}
       <View style={styles.topBar}>
-        <TouchableOpacity style={styles.sideButton} onPress={() => router.back()}>
+        <TouchableOpacity
+          style={styles.sideButton}
+          onPress={() => router.back()}
+        >
           <Ionicons name="chevron-back" size={26} color="white" />
         </TouchableOpacity>
 
@@ -111,11 +116,14 @@ export default function CinemaDetailScreen() {
 
       {/* CONTENT */}
       <ScrollView contentContainerStyle={styles.content}>
-
         {tab === "movies" ? (
           <>
             {moviesHere.map((movie) => (
-              <CinemaMovieCard key={`movie-${movie.id}`} movie={movie} cinemaId={cinema.id} />
+              <CinemaMovieCard
+                key={`movie-${movie.id}`}
+                movie={movie}
+                cinemaId={cinema.id}
+              />
             ))}
           </>
         ) : (
@@ -156,7 +164,6 @@ export default function CinemaDetailScreen() {
             </TouchableOpacity>
           </View>
         )}
-
       </ScrollView>
     </View>
   );

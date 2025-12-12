@@ -1,5 +1,8 @@
 import FavouriteMovieCard from "@/src/components/favourite-movie-card/favourite-movie-card";
-import { loadFavouritesFromStorage, reorderFavourites } from "@/src/redux/features/favourite/favourite-slice";
+import {
+  loadFavouritesFromStorage,
+  reorderFavourites
+} from "@/src/redux/features/favourite/favourite-slice";
 import { AppDispatch, RootState } from "@/src/redux/store";
 import { useEffect } from "react";
 import { Text, View } from "react-native";
@@ -8,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./styles";
 
 export default function FavouritesScreen() {
-  const dispatch = useDispatch<AppDispatch>();  
+  const dispatch = useDispatch<AppDispatch>();
   const favourites = useSelector((state: RootState) => state.favourites.items);
 
   useEffect(() => {

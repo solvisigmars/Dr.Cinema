@@ -16,19 +16,22 @@ const initialState: AuthState = {
 };
 
 // Fetch token (will run automatically on app startup)
-export const authenticateUser = createAsyncThunk("auth/authenticate", async () => {
-  const token = await getToken(API_USERNAME, API_PASSWORD);
-  setToken(token);
-  return token;
-});
+export const authenticateUser = createAsyncThunk(
+  "auth/authenticate",
+  async () => {
+    const token = await getToken(API_USERNAME, API_PASSWORD);
+    setToken(token);
+    return token;
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {},
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
-      .addCase(authenticateUser.pending, state => {
+      .addCase(authenticateUser.pending, (state) => {
         state.status = "loading";
       })
       .addCase(authenticateUser.fulfilled, (state, action) => {

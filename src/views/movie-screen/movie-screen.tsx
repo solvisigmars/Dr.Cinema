@@ -1,7 +1,10 @@
 import MovieInfo from "@/src/components/movie-info/movie-info";
 import MovieShowtimes from "@/src/components/movie-showtimes/movie-showtimes";
 import TrailerPlayer from "@/src/components/trailer-player/trailer-player";
-import { addFavourite, removeFavourite } from "@/src/redux/features/favourite/favourite-slice";
+import {
+  addFavourite,
+  removeFavourite
+} from "@/src/redux/features/favourite/favourite-slice";
 import { fetchMovies } from "@/src/redux/features/movies/movies-slice";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
 import { Ionicons } from "@expo/vector-icons";
@@ -42,7 +45,6 @@ export default function MovieScreen() {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* 🔙 BACK BUTTON */}
       <TouchableOpacity onPress={() => router.back()} style={styles.sideButton}>
         <Ionicons name="chevron-back" size={28} color="white" />
       </TouchableOpacity>
@@ -50,7 +52,6 @@ export default function MovieScreen() {
       <ScrollView style={styles.screen}>
         <MovieInfo movie={movie} />
 
-        {/* ❤️ FAVOURITE BUTTON */}
         <TouchableOpacity onPress={toggleFavourite} style={styles.favourite}>
           <Ionicons
             name={isFavourite ? "heart" : "heart-outline"}

@@ -20,9 +20,11 @@ export default function CinemasScreen() {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
 
-  const { items: cinemas, status, error } = useSelector(
-    (state: RootState) => state.cinemas
-  );
+  const {
+    items: cinemas,
+    status,
+    error
+  } = useSelector((state: RootState) => state.cinemas);
 
   const [search, setSearch] = useState("");
 
@@ -40,8 +42,11 @@ export default function CinemasScreen() {
 
   const openCinema = (id: number) => router.push(`/cinema/${id}`);
 
-  const openWebsite = (url: string) =>
+  const openWebsite = (url?: string | null) => {
+    if (!url) return;
+
     Linking.openURL(url.startsWith("http") ? url : `https://${url}`);
+  };
 
   const openMap = (cinema: any) => {
     const query = `${cinema.name} ${cinema.address} ${cinema.city}`.replace(

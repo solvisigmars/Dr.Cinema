@@ -41,6 +41,19 @@ function groupMoviesByCinema(movies: Movie[]): CinemaGroup[] {
   return Object.values(groups);
 }
 
+function normaliseTime(raw: string): string | null {
+  if (!raw) return null;
+
+  const match = raw.match(/^(\d{1,2})[.:](\d{2})/);
+
+  if (!match) return null;
+
+  const hours = match[1].padStart(2, "0");
+  const minutes = match[2];
+
+  return `${hours}:${minutes}`;
+}
+
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const dispatch = useAppDispatch();
@@ -60,16 +73,15 @@ export default function HomeScreen() {
 
   const filteredMovies = useMemo(() => {
     return movies.filter((movie) => {
-    // Title
+      // Title
       if (
         filters.title &&
-      !movie.title.toLowerCase().includes(filters.title.toLowerCase())
-      ) return false;
+        !movie.title.toLowerCase().includes(filters.title.toLowerCase())
+      )
+        return false;
 
       // IMDb
-      const imdb = movie.ratings?.imdb
-        ? Number(movie.ratings.imdb)
-        : null;
+      const imdb = movie.ratings?.imdb ? Number(movie.ratings.imdb) : null;
 
       if (filters.imdbMin !== null && (imdb === null || imdb < filters.imdbMin))
         return false;
@@ -77,7 +89,7 @@ export default function HomeScreen() {
       if (filters.imdbMax !== null && (imdb === null || imdb > filters.imdbMax))
         return false;
 
-      // Rotten Tomatoes 
+      // Rotten Tomatoes
       const rt = movie.ratings?.rotten_critics
         ? Number(movie.ratings.rotten_critics)
         : null;
@@ -88,40 +100,42 @@ export default function HomeScreen() {
       if (filters.rtMax !== null && (rt === null || rt > filters.rtMax))
         return false;
 
-
       // Showtime range
       if (filters.showStart || filters.showEnd) {
         const start = filters.showStart ?? "00:00";
         const end = filters.showEnd ?? "23:59";
 
-        const times = movie.showtimes.flatMap(group =>
-          group.schedule.map(s => s.time)
+        const times = movie.showtimes.flatMap(
+          (group) =>
+            group.schedule
+              .map((s) => normaliseTime(s.time))
+              .filter(Boolean) as string[]
         );
 
-        const inRange = times.some(t => t >= start && t <= end);
-        if (!inRange) return false;
-      }
+        const hasShowtimeInRange = times.some((t) => t >= start && t <= end);
 
-      // Actors 
-      const actorNames = (movie.actors_abridged ?? []).map(a =>
+        if (!hasShowtimeInRange) return false;
+      }
+      // Actors
+      const actorNames = (movie.actors_abridged ?? []).map((a) =>
         a.name.toLowerCase()
       );
 
       if (filters.actors.length > 0) {
-        const actorMatch = filters.actors.some(actor =>
-          actorNames.some(name => name.includes(actor.toLowerCase()))
+        const actorMatch = filters.actors.some((actor) =>
+          actorNames.some((name) => name.includes(actor.toLowerCase()))
         );
         if (!actorMatch) return false;
       }
 
-      // Directors 
-      const directorNames = (movie.directors_abridged ?? []).map(d =>
+      // Directors
+      const directorNames = (movie.directors_abridged ?? []).map((d) =>
         d.name.toLowerCase()
       );
 
       if (filters.directors.length > 0) {
-        const directorMatch = filters.directors.some(dir =>
-          directorNames.some(name => name.includes(dir.toLowerCase()))
+        const directorMatch = filters.directors.some((dir) =>
+          directorNames.some((name) => name.includes(dir.toLowerCase()))
         );
         if (!directorMatch) return false;
       }
@@ -133,9 +147,10 @@ export default function HomeScreen() {
     });
   }, [movies, filters]);
 
-  const groups = useMemo(() => groupMoviesByCinema(filteredMovies), [
-    filteredMovies
-  ]);
+  const groups = useMemo(
+    () => groupMoviesByCinema(filteredMovies),
+    [filteredMovies]
+  );
 
   if (status === "loading") {
     return (
@@ -159,7 +174,6 @@ export default function HomeScreen() {
     <View style={styles.screen}>
       <View style={styles.headerBackground} />
 
-      {/* FIXED FILTER BUTTON (NOT FLOATING ANYMORE) */}
       <View style={[styles.topBar, { paddingTop: insets.top + 4 }]}>
         <TouchableOpacity
           onPress={() => setShowFilters(true)}
@@ -175,12 +189,19 @@ export default function HomeScreen() {
           keyExtractor={(g) => g.cinemaId.toString()}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
-            <CinemaSection cinemaName={item.cinemaName} cinemaId={item.cinemaId} movies={item.movies} />
+            <CinemaSection
+              cinemaName={item.cinemaName}
+              cinemaId={item.cinemaId}
+              movies={item.movies}
+            />
           )}
         />
       </View>
 
-      <FilterModal visible={showFilters} onClose={() => setShowFilters(false)} />
+      <FilterModal
+        visible={showFilters}
+        onClose={() => setShowFilters(false)}
+      />
     </View>
   );
 }

@@ -5,7 +5,7 @@ import styles from "./styles";
 
 interface Props {
   movie: Movie;
-  cinemaId: number
+  cinemaId: number;
 }
 
 export default function MovieCard({ movie, cinemaId }: Props) {
@@ -17,14 +17,12 @@ export default function MovieCard({ movie, cinemaId }: Props) {
       style={styles.cardWrapper}
       activeOpacity={0.9}
     >
-      {/* Poster (sharp corners) */}
       <Image
         source={{ uri: movie.poster }}
         style={styles.poster}
         resizeMode="cover"
       />
 
-      {/* White info block */}
       <View style={styles.infoBlock}>
         <Text numberOfLines={1} style={styles.title}>
           {movie.title}

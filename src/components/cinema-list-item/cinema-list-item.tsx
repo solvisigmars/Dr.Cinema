@@ -2,7 +2,6 @@ import { Cinema } from "@/src/types/cinema";
 import { useRouter } from "expo-router";
 import { Pressable, Text } from "react-native";
 
-
 export default function CinemaListItem({ cinema }: { cinema: Cinema }) {
   const router = useRouter();
 

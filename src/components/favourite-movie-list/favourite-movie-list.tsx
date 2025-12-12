@@ -1,6 +1,11 @@
-import { removeFavourite, reorderFavourites } from "@/src/redux/features/favourite/favourite-slice";
+import {
+  removeFavourite,
+  reorderFavourites
+} from "@/src/redux/features/favourite/favourite-slice";
 import { RootState } from "@/src/redux/store";
-import DraggableFlatList, { RenderItemParams } from "react-native-draggable-flatlist";
+import DraggableFlatList, {
+  RenderItemParams
+} from "react-native-draggable-flatlist";
 import { useDispatch, useSelector } from "react-redux";
 import FavouriteMovieCard from "../favourite-movie-card/favourite-movie-card";
 
@@ -21,9 +26,7 @@ export default function FavouriteMovieList() {
       data={favourites}
       keyExtractor={(item) => item.id.toString()}
       renderItem={renderItem}
-      onDragEnd={({ from, to }) =>
-        dispatch(reorderFavourites({ from, to }))
-      }
+      onDragEnd={({ from, to }) => dispatch(reorderFavourites({ from, to }))}
     />
   );
 }

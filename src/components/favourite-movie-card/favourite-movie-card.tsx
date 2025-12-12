@@ -7,7 +7,7 @@ import styles from "./styles";
 
 interface Props {
   movie: Movie;
-  onLongPress?: () => void;   // for dragging
+  onLongPress?: () => void; // for dragging
   active?: boolean;
   onRemove?: () => void;
 }
@@ -25,22 +25,20 @@ export default function FavouriteMovieCard({ movie, onLongPress }: Props) {
 
   const safeTitle =
     movie.title?.trim() ||
-    movie.original_title?.trim() ||
-    movie.title_local?.trim() ||
+    movie.title?.trim() ||
+    movie.alternativeTitles?.trim() ||
     "Untitled";
 
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={() => router.push(`/movie/${movie.id}`)}
-      onLongPress={onLongPress}         
+      onLongPress={onLongPress}
       activeOpacity={0.9}
     >
       <Image source={{ uri: movie.poster }} style={styles.poster} />
 
       <View style={styles.card}>
-        
-
         <TouchableOpacity
           style={styles.removeButton}
           onPress={() => dispatch(removeFavourite(movie.id))}
@@ -48,29 +46,24 @@ export default function FavouriteMovieCard({ movie, onLongPress }: Props) {
           <Text style={styles.removeText}>✕</Text>
         </TouchableOpacity>
 
-        
         <Text numberOfLines={2} style={styles.title}>
           {safeTitle} ({movie.year})
         </Text>
 
-        
         <Text style={styles.genre}>
           {movie.genres.map((g) => g.NameEN).join(", ")}
         </Text>
 
-        
         <Text style={styles.label}>Director</Text>
         <Text style={styles.text}>
           {movie.directors_abridged.map((d) => d.name).join(", ")}
         </Text>
 
-        
         <Text style={styles.label}>Actors</Text>
         <Text numberOfLines={1} style={styles.text}>
           {movie.actors_abridged.map((a) => a.name).join(", ")}
         </Text>
 
-       
         <View style={styles.ratingRow}>
           {imdbScore !== "-" && (
             <View style={styles.imdbBox}>
@@ -90,7 +83,6 @@ export default function FavouriteMovieCard({ movie, onLongPress }: Props) {
           )}
         </View>
 
-        
         <Text style={styles.arrow}>{">"}</Text>
       </View>
     </TouchableOpacity>

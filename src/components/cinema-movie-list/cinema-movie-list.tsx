@@ -12,11 +12,7 @@ export default function CinemaMovieList({
   return (
     <View>
       {movies.map((movie) => (
-        <CinemaMovieCard
-          key={movie.id}
-          movie={movie}
-          cinemaId={cinemaId}
-        />
+        <CinemaMovieCard key={movie.id} movie={movie} cinemaId={cinemaId} />
       ))}
     </View>
   );
